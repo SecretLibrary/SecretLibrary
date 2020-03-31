@@ -1,6 +1,6 @@
 # reading-party
 
-> Reading Party Platform APp
+> Reading Party Platform App
 
 ## Build Setup
 

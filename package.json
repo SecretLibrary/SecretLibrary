@@ -1,7 +1,7 @@
 {
     "name": "reading-party",
     "version": "1.0.0",
-    "description": "Reading Party Platform APp",
+    "description": "Reading Party Platform App",
     "author": "Eggplantiny",
     "private": true,
     "scripts": {
