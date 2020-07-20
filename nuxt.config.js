@@ -1,13 +1,15 @@
-const colors = require('vuetify/es5/util/colors').default
+require('dotenv').config()
 
 module.exports = {
     mode: 'universal',
+    srcDir: 'frontend/',
     /*
     ** Headers of the page
     */
     head: {
-        titleTemplate: '%s - ' + process.env.npm_package_name,
-        title: process.env.npm_package_name || '',
+        // titleTemplate: '%s' + process.env.npm_package_name,
+        titleTemplate: '%s' + ' - 비밀서재',
+        title: process.env.npm_package_title || '',
         meta: [
             { charset: 'utf-8' },
             {
@@ -29,66 +31,135 @@ module.exports = {
             {
                 rel: 'stylesheet',
                 href: 'https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&family=Noto+Sans+KR:wght@400;700;900&display=swap'
+            },
+            {
+                rel: 'stylesheet',
+                href: 'https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap'
             }
         ]
     },
     /*
     ** Customize the progress-bar color
     */
-    loading: { color: '#fff' },
+    loading: {
+        name: 'chasing-dots',
+        color: '#e37070',
+        background: 'white',
+        height: '4px'
+    },
     /*
     ** Global CSS
     */
     css: [
-        { src: '~assets/styles/index.scss', lang: 'scss' }
+        { src: '~assets/styles/main.scss', lang: 'scss' }
     ],
     /*
     ** Plugins to load before mounting the App
     */
-    plugins: [],
+    plugins: [
+        '~plugins/googleMap.js'
+    ],
     /*
-    ** Nuxt.js dev-modules
+    ** Nuxt.js dev-routes
     */
     buildModules: [
         // Doc: https://github.com/nuxt-community/eslint-module
         '@nuxtjs/eslint-module',
-        '@nuxtjs/vuetify'
+        '@nuxtjs/vuetify',
+        '@nuxtjs/dotenv',
+        [
+            '@nuxtjs/google-analytics', {
+                id: 'UA-172419012-1'
+            }
+        ]
     ],
+    dotenv: {
+        systemvars: true
+    },
     /*
-    ** Nuxt.js modules
+    ** Nuxt.js routes
     */
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/axios'
+        '@nuxtjs/axios',
+        '@nuxtjs/auth',
+        '@nuxtjs/toast',
+        ['@nuxtjs/google-adsense', { id: 'ca-pub-7758221888679599' }]
     ],
     /*
     ** Axios module configuration
     ** See https://axios.nuxtjs.org/options
     */
-    axios: {},
+    axios: {
+        baseURL: process.env.API_BASE_URL,
+        proxyHeaders: false,
+        credentials: true
+    },
+    /*
+    ** Toast Modules
+    */
+    toast: {
+        position: 'top-right',
+        duration: 2000,
+        register: [
+            {
+                name: 'error',
+                message: '에러가 발생했어요 😨',
+                options: {
+                    type: 'error'
+                }
+            }
+        ]
+    },
+    /*
+    ** router Module configuration.
+    ** See https://ko.nuxtjs.org/api/configuration-router/
+    **
+    */
+    router: {
+        middleware: ['auth'],
+        linkActiveClass: 'r-active-link',
+        linkExactActiveClass: 'r-exact-active-link'
+    },
+    /*
+    ** auth module configuration
+    ** https://auth.nuxtjs.org/
+    */
+    auth: {
+        strategies: {
+            kakao: {
+                _scheme: 'oauth2',
+                authorization_endpoint: 'https://kauth.kakao.com/oauth/authorize',
+                userinfo_endpoint: 'https://kapi.kakao.com/v2/user/me',
+                access_token_endpoint: 'https://kauth.kakao.com/oauth/token',
+                scope: ['profile'],
+                access_type: 'authorization_code',
+                response_type: 'code',
+                token_type: 'Bearer',
+                redirect_uri: process.env.KAKAO_CALLBACK_URL,
+                client_id: process.env.KAKAO_CLIENT_ID,
+                token_key: 'access_token',
+                state: '11kjwkrajfij2k3nefndsmfnvx23efjjkjsdn'
+            }
+        }
+    },
     /*
     ** vuetify module configuration
     ** https://github.com/nuxt-community/vuetify-module
     */
     vuetify: {
-        customVariables: ['~assets/styles/vuetify/index.scss'],
+        customVariables: ['~assets/styles/vuetify/main.scss'],
         theme: {
             dark: false,
             themes: {
-                dark: {
-                    primary: colors.blue.darken2,
-                    accent: colors.grey.darken3,
-                    secondary: colors.amber.darken3,
-                    info: colors.teal.lighten1,
-                    warning: colors.amber.base,
-                    error: colors.deepOrange.accent4,
-                    success: colors.green.accent3
-                },
                 light: {
                     main: '#e37070',
+                    cancel: '#251f44',
                     alternative: '#ffaaaa',
                     emphasis: '#c7004c',
-                    serious: '#8f1537'
+                    serious: '#8f1537',
+                    kakao: '#ffe812',
+                    facebook: '#3b5998'
                 }
             }
         }
@@ -100,7 +171,27 @@ module.exports = {
         /*
         ** You can extend webpack config here
         */
+        transpile: [/^vue2-google-maps($|\/)/],
+        babel: {
+            presets ({ isServer }) {
+                return [
+                    [
+                        require.resolve('@nuxt/babel-preset-app'),
+                        // require.resolve('@nuxt/babel-preset-app-edge'), // For nuxt-edge users
+                        {
+                            buildTarget: isServer ? 'server' : 'client',
+                            corejs: { version: 3 }
+                        }
+                    ]
+                ]
+            }
+        },
         extend (config, ctx) {
         }
-    }
+    },
+    env: {
+        KAKAO_CLIENT_ID: process.env.KAKAO_CLIENT_ID,
+        GOOGLE_MAP_KEY: process.env.GOOGLE_MAP_KEY
+    },
+    telemetry: false
 }

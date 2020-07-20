@@ -16,6 +16,7 @@ module.exports = {
     rules: {
         'nuxt/no-cjs-in-config': 'off',
         'indent': [1, 4],
-        'vue/html-indent': [1, 4]
+        'vue/html-indent': [1, 4],
+        'no-console': 'off'
     }
 }

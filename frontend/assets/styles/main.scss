@@ -1,0 +1,88 @@
+
+* {
+    font-family: "Noto Sans KR", sans-serif;
+    //font-family: "Nanum Myeongjo", sans-serif;
+}
+.full-screen {
+    width: 100vm;
+    height: 100vh;
+}
+
+.border-radius {
+    border-radius: 20px !important;
+}
+
+span.emphasize {
+    color: $main;
+}
+
+.card-title {
+    font-size: 28px !important;
+    font-weight: bolder !important;
+    color: $main !important;
+}
+
+.r-active-link {
+    color: inherit;
+}
+
+.r-exact-active-link {
+    color: inherit;
+}
+
+.fill-height {
+    height: 100%;
+}
+
+.bottom-action {
+    position: absolute; bottom: 0; width: 100%;
+}
+
+.bl {
+    padding: 0 4px;
+    &-text {
+        font-size: 1.5em;
+        font-weight: bold;
+        padding-left: 12px;
+        word-break: keep-all;
+    }
+    &-sub-text {
+        font-size: 1.25em;
+        font-weight: bold;
+        padding-left: 12px;
+        word-break: keep-all;
+        color: #7F828B;
+        transition: color 0.3s;
+    }
+    &-sub-text .selected {
+        color: #e37070;
+        transition: color 0.3s;
+    }
+    &-input {
+        font-size: 1.5em;
+        font-weight: bold;
+        color: inherit;
+    }
+}
+
+.border-radius {
+    border-radius: 20px;
+}
+
+.sub-info {
+    font-size: 0.8em;
+    color: #7F828B;
+}
+
+.book-border {
+    border: #7F828B solid 2px;
+    border-radius: 4px;
+    transition: border 0.5s;
+}
+
+.hover-border {
+    border: #1e1e1e solid 4px !important;
+    border-collapse: separate;
+    border-radius: 8px;
+    transition: border 0.2s;
+}

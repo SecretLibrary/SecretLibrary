@@ -1,0 +1,652 @@
+{
+	"10": {
+		"Category": "예술/대중문화",
+		"Code": "10",
+		"Items": [
+			{
+				"Category": "예술일반",
+				"Code": "1001"
+			},
+			{
+				"Category": "미술",
+				"Code": "1002"
+			},
+			{
+				"Category": "만화/애니메이션",
+				"Code": "1003"
+			},
+			{
+				"Category": "디자인/색채",
+				"Code": "1004"
+			},
+			{
+				"Category": "패션/의류",
+				"Code": "1005"
+			},
+			{
+				"Category": "음악",
+				"Code": "1006"
+			},
+			{
+				"Category": "사진/영상",
+				"Code": "1007"
+			},
+			{
+				"Category": "연극",
+				"Code": "1008"
+			},
+			{
+				"Category": "영화",
+				"Code": "1009"
+			},
+			{
+				"Category": "예술기행",
+				"Code": "1010"
+			},
+			{
+				"Category": "예술문고",
+				"Code": "1011"
+			},
+			{
+				"Category": "청소년예술",
+				"Code": "1012"
+			}
+		]
+	},
+	"11": {
+		"Category": "과학",
+		"Code": "11",
+		"Items": [
+			{
+				"Category": "과학이론",
+				"Code": "1101"
+			},
+			{
+				"Category": "도감",
+				"Code": "1102"
+			},
+			{
+				"Category": "교양과학",
+				"Code": "1103"
+			},
+			{
+				"Category": "수학",
+				"Code": "1104"
+			},
+			{
+				"Category": "물리학",
+				"Code": "1105"
+			},
+			{
+				"Category": "화학",
+				"Code": "1106"
+			},
+			{
+				"Category": "생물학",
+				"Code": "1107"
+			},
+			{
+				"Category": "지구과학",
+				"Code": "1108"
+			},
+			{
+				"Category": "천문학",
+				"Code": "1109"
+			},
+			{
+				"Category": "청소년 교양과학",
+				"Code": "1110"
+			},
+			{
+				"Category": "과학문고",
+				"Code": "1111"
+			},
+			{
+				"Category": "초과학",
+				"Code": "1112"
+			}
+		]
+	},
+	"12": {
+		"Category": "기술/공학",
+		"Code": "12",
+		"Items": [
+			{
+				"Category": "건축/인테리어",
+				"Code": "1201"
+			},
+			{
+				"Category": "토목/건설",
+				"Code": "1202"
+			},
+			{
+				"Category": "환경/소방/도시/조경",
+				"Code": "1203"
+			},
+			{
+				"Category": "자동차/운전",
+				"Code": "1204"
+			},
+			{
+				"Category": "운전면허",
+				"Code": "1205"
+			},
+			{
+				"Category": "공학일반",
+				"Code": "1206"
+			},
+			{
+				"Category": "금속/재료",
+				"Code": "1207"
+			},
+			{
+				"Category": "기계/역학/항공",
+				"Code": "1208"
+			},
+			{
+				"Category": "전기/전자",
+				"Code": "1209"
+			},
+			{
+				"Category": "농수산/축산",
+				"Code": "1210"
+			},
+			{
+				"Category": "생활과학",
+				"Code": "1211"
+			},
+			{
+				"Category": "의학",
+				"Code": "1212"
+			}
+		]
+	},
+	"13": {
+		"Category": "컴퓨터/IT",
+		"Code": "13",
+		"Items": [
+			{
+				"Category": "컴퓨터공학",
+				"Code": "1301"
+			},
+			{
+				"Category": "IT일반",
+				"Code": "1302"
+			},
+			{
+				"Category": "컴퓨터입문/활용",
+				"Code": "1303"
+			},
+			{
+				"Category": "전산통계/해석",
+				"Code": "1304"
+			},
+			{
+				"Category": "OS",
+				"Code": "1305"
+			},
+			{
+				"Category": "네트워크",
+				"Code": "1306"
+			},
+			{
+				"Category": "보안/해킹",
+				"Code": "1307"
+			},
+			{
+				"Category": "데이터베이스",
+				"Code": "1308"
+			},
+			{
+				"Category": "개발방법론",
+				"Code": "1309"
+			},
+			{
+				"Category": "게임",
+				"Code": "1310"
+			},
+			{
+				"Category": "웹프로그래밍",
+				"Code": "1311"
+			},
+			{
+				"Category": "프로그래밍/언어",
+				"Code": "1312"
+			},
+			{
+				"Category": "모바일프로그래밍",
+				"Code": "1313"
+			},
+			{
+				"Category": "OA/사무자동화",
+				"Code": "1314"
+			},
+			{
+				"Category": "웹사이트",
+				"Code": "1315"
+			},
+			{
+				"Category": "그래픽",
+				"Code": "1316"
+			},
+			{
+				"Category": "멀티미디어",
+				"Code": "1317"
+			},
+			{
+				"Category": "CAD",
+				"Code": "1318"
+			},
+			{
+				"Category": "자격증/수험서",
+				"Code": "1319"
+			}
+		]
+	},
+	"14": {
+		"Category": "만화",
+		"Code": "14",
+		"Items": [
+			{
+				"Category": "만화",
+				"Code": "1401"
+			}
+		]
+	},
+	"01": {
+		"Category": "소설",
+		"Code": "01",
+		"Items": [
+			{
+				"Category": "소설",
+				"Code": "0101"
+			},
+			{
+				"Category": "한국소설",
+				"Code": "0102"
+			},
+			{
+				"Category": "영미소설",
+				"Code": "0103"
+			},
+			{
+				"Category": "일본소설",
+				"Code": "0104"
+			},
+			{
+				"Category": "중국소설",
+				"Code": "0105"
+			},
+			{
+				"Category": "러시아소설",
+				"Code": "0106"
+			},
+			{
+				"Category": "프랑스소설",
+				"Code": "0107"
+			},
+			{
+				"Category": "독일소설",
+				"Code": "0108"
+			},
+			{
+				"Category": "북유럽소설",
+				"Code": "0109"
+			},
+			{
+				"Category": "그외유럽소설",
+				"Code": "0110"
+			},
+			{
+				"Category": "기타나라소설",
+				"Code": "0111"
+			},
+			{
+				"Category": "청소년소설",
+				"Code": "0112"
+			},
+			{
+				"Category": "고전소설/문학선",
+				"Code": "0113"
+			},
+			{
+				"Category": "세계문학전집",
+				"Code": "0114"
+			},
+			{
+				"Category": "라이트노벨",
+				"Code": "0115"
+			},
+			{
+				"Category": "장르소설",
+				"Code": "0116"
+			}
+		]
+	},
+	"02": {
+		"Category": "시/에세이",
+		"Code": "02",
+		"Items": [
+			{
+				"Category": "한국시",
+				"Code": "0201"
+			},
+			{
+				"Category": "해외시",
+				"Code": "0202"
+			},
+			{
+				"Category": "테마에세이",
+				"Code": "0203"
+			},
+			{
+				"Category": "나라별 에세이",
+				"Code": "0204"
+			},
+			{
+				"Category": "인물/자전적에세이",
+				"Code": "0205"
+			},
+			{
+				"Category": "청소년 시/에세이",
+				"Code": "0206"
+			},
+			{
+				"Category": "시/에세이문고",
+				"Code": "0207"
+			}
+		]
+	},
+	"03": {
+		"Category": "경제/경영",
+		"Code": "03",
+		"Items": [
+			{
+				"Category": "경영일반",
+				"Code": "0301"
+			},
+			{
+				"Category": "경영이론",
+				"Code": "0302"
+			},
+			{
+				"Category": "경영관리",
+				"Code": "0303"
+			},
+			{
+				"Category": "경영전략",
+				"Code": "0304"
+			},
+			{
+				"Category": "경제일반",
+				"Code": "0305"
+			},
+			{
+				"Category": "경제이론",
+				"Code": "0306"
+			},
+			{
+				"Category": "경제실무",
+				"Code": "0307"
+			},
+			{
+				"Category": "각국경제",
+				"Code": "0308"
+			}
+		]
+	},
+	"04": {
+		"Category": "세무/회계",
+		"Code": "04",
+		"Items": [
+			{
+				"Category": "마케팅/광고/고객",
+				"Code": "0401"
+			},
+			{
+				"Category": "유통/창업",
+				"Code": "0402"
+			},
+			{
+				"Category": "재테크/금융",
+				"Code": "0403"
+			},
+			{
+				"Category": "무역/운송",
+				"Code": "0404"
+			},
+			{
+				"Category": "관광/호텔",
+				"Code": "0405"
+			},
+			{
+				"Category": "경제/경영문고",
+				"Code": "0406"
+			}
+		]
+	},
+	"05": {
+		"Category": "자기계발",
+		"Code": "05",
+		"Items": [
+			{
+				"Category": "성공/처세",
+				"Code": "0501"
+			},
+			{
+				"Category": "자기능력계발",
+				"Code": "0502"
+			},
+			{
+				"Category": "비즈니스능력계발",
+				"Code": "0503"
+			},
+			{
+				"Category": "인간관계",
+				"Code": "0504"
+			},
+			{
+				"Category": "화술/협상",
+				"Code": "0505"
+			},
+			{
+				"Category": "청소년자기계발",
+				"Code": "0506"
+			}
+		]
+	},
+	"06": {
+		"Category": "인문",
+		"Code": "06",
+		"Items": [
+			{
+				"Category": "인문학일반",
+				"Code": "0601"
+			},
+			{
+				"Category": "심리학",
+				"Code": "0602"
+			},
+			{
+				"Category": "교육학",
+				"Code": "0603"
+			},
+			{
+				"Category": "유아교육",
+				"Code": "0604"
+			},
+			{
+				"Category": "특수교육",
+				"Code": "0605"
+			},
+			{
+				"Category": "임용고시",
+				"Code": "0606"
+			},
+			{
+				"Category": "철학",
+				"Code": "0607"
+			},
+			{
+				"Category": "문학이론",
+				"Code": "0608"
+			},
+			{
+				"Category": "한국문학론",
+				"Code": "0609"
+			},
+			{
+				"Category": "영미문학론",
+				"Code": "0610"
+			},
+			{
+				"Category": "중국문학론",
+				"Code": "0611"
+			},
+			{
+				"Category": "세계문학론",
+				"Code": "0612"
+			},
+			{
+				"Category": "언어학",
+				"Code": "0613"
+			},
+			{
+				"Category": "독서/글쓰기",
+				"Code": "0614"
+			}
+		]
+	},
+	"07": {
+		"Category": "역사/문화",
+		"Code": "07",
+		"Items": [
+			{
+				"Category": "역사일반",
+				"Code": "0701"
+			},
+			{
+				"Category": "세계사",
+				"Code": "0702"
+			},
+			{
+				"Category": "서양사",
+				"Code": "0703"
+			},
+			{
+				"Category": "동양사",
+				"Code": "0704"
+			},
+			{
+				"Category": "한국사",
+				"Code": "0705"
+			},
+			{
+				"Category": "신화",
+				"Code": "0706"
+			},
+			{
+				"Category": "민속학",
+				"Code": "0707"
+			},
+			{
+				"Category": "문화일반",
+				"Code": "0708"
+			},
+			{
+				"Category": "문화사",
+				"Code": "0709"
+			},
+			{
+				"Category": "역사인물",
+				"Code": "0710"
+			},
+			{
+				"Category": "역사기행",
+				"Code": "0711"
+			},
+			{
+				"Category": "청소년 역사",
+				"Code": "0712"
+			},
+			{
+				"Category": "지리학",
+				"Code": "0713"
+			}
+		]
+	},
+	"08": {
+		"Category": "종교",
+		"Code": "08",
+		"Items": [
+			{
+				"Category": "종교일반",
+				"Code": "0801"
+			},
+			{
+				"Category": "기독교(개신교)",
+				"Code": "0802"
+			},
+			{
+				"Category": "가톨릭",
+				"Code": "0803"
+			},
+			{
+				"Category": "불교",
+				"Code": "0804"
+			},
+			{
+				"Category": "그외종교",
+				"Code": "0805"
+			},
+			{
+				"Category": "CD/TAPE/악보",
+				"Code": "0806"
+			},
+			{
+				"Category": "정치/사회",
+				"Code": "0807"
+			},
+			{
+				"Category": "정치/외교",
+				"Code": "0808"
+			}
+		]
+	},
+	"09": {
+		"Category": "행정/정책",
+		"Code": "09",
+		"Items": [
+			{
+				"Category": "국방/군사",
+				"Code": "0901"
+			},
+			{
+				"Category": "법학",
+				"Code": "0902"
+			},
+			{
+				"Category": "사회학",
+				"Code": "0903"
+			},
+			{
+				"Category": "사회문제/복지",
+				"Code": "0904"
+			},
+			{
+				"Category": "언론/신문/방송",
+				"Code": "0905"
+			},
+			{
+				"Category": "정치/사회문고",
+				"Code": "0906"
+			},
+			{
+				"Category": "정부간행물",
+				"Code": "0907"
+			}
+		]
+	}
+}
+
+

@@ -1,0 +1,57 @@
+// Ref: https://github.com/nuxt-community/vuetify-module#customvariables
+//
+// The variables you want to modify
+// $font-size-root: 20px;
+
+@import "color";
+
+.v-application {
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+}
+
+.my-input .v-input--selection-controls__input {
+    margin-left: auto !important;
+}
+
+
+.note {
+    .v-input__control {
+        .v-input__slot {
+            padding: 0 !important;
+            .v-text-field__slot {
+                textarea {
+                    font-size: 1.2em;
+                    background-attachment: local;
+                    background-image:
+                        linear-gradient(to right, white 0, transparent 0),
+                        linear-gradient(to left, white 0, transparent 0),
+                        repeating-linear-gradient(white, white 30px, #ccc 30px, #ccc 31px, white 31px);
+                    line-height: 1.65;
+                }
+                input {
+                    height: 40px;
+                }
+            }
+        }
+    }
+}
+
+.bl-input {
+    .v-input__control {
+        .v-input__slot {
+            .v-text-field__slot {
+                input {
+                    height: 50px;
+                    max-height: 50px;
+                }
+            }
+        }
+    }
+}
+
+.v-card__title {
+    word-break: keep-all !important;
+}
