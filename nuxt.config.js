@@ -84,6 +84,13 @@ module.exports = {
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         '@nuxtjs/toast',
+        ['vuetify-dialog/nuxt', {
+            property: '$dialog',
+            actions: [
+                { text: '아니요', color: 'gray darken-1', key: false },
+                { text: '네', color: 'main', key: true }
+            ]
+        }],
         ['@nuxtjs/google-adsense', { id: 'ca-pub-7758221888679599' }]
     ],
     /*

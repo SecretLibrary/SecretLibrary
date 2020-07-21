@@ -156,10 +156,22 @@ async function updateItem (itemKey, user, items, url, book, meetingKey, userId) 
     return await documentClient.update(params).promise()
 }
 
+async function deleteItem (itemKey) {
+    const params = {
+        TableName,
+        Key: {
+            itemKey
+        },
+        ConditionExpression: 'attribute_exists(itemKey)'
+    }
+    return await documentClient.delete(params).promise()
+}
+
 module.exports = {
     createTable,
     getItems,
     getItem,
     addItem,
-    updateItem
+    updateItem,
+    deleteItem
 }

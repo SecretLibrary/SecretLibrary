@@ -317,9 +317,8 @@ export default {
                     url
                 })
 
-                const { userId } = user
                 this.$toast.success('완료되었습니다.')
-                await this.$router.push(`/u/${userId}/${data.result}`)
+                await this.$router.push(`/article/${data.result}`)
             } catch (e) {
                 console.error(e)
                 this.$toast.global.error()

@@ -64,7 +64,7 @@ export default {
         }
 
         try {
-            const res = await $axios.get(`/articles/${userId}`)
+            const res = await $axios.get(`/articles/userId/${userId}`)
             result.items = res.data.result
         } catch (e) {
             console.error(e)
@@ -91,9 +91,8 @@ export default {
     },
     methods: {
         goItem (item) {
-            const { itemKey, author } = item
-            const { userId } = author
-            this.$router.push(`/u/${userId}/${itemKey}`)
+            const { itemKey } = item
+            this.$router.push(`/article/${itemKey}`)
         }
     },
     head () {

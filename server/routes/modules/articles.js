@@ -5,7 +5,7 @@ const articles = require('../../aws/modules/articles')
 const response = require('../utils/response')
 const router = express.Router()
 
-router.get('/:userId', async (req, res) => {
+router.get('/userId/:userId', async (req, res) => {
     const { userId } = req.params
 
     try {
@@ -17,13 +17,13 @@ router.get('/:userId', async (req, res) => {
     }
 })
 
-router.get('/:userId/:itemKey', async (req, res) => {
-    const { userId, itemKey } = req.params
+router.get('/:itemKey', async (req, res) => {
+    const { itemKey } = req.params
     try {
-        const item = await articles.getItem(itemKey, userId)
+        const item = await articles.getItem(itemKey)
 
         if (!item) {
-            return response.failed(res, { status: 404, message: `Cannot find content ${userId}/${itemKey}`})
+            return response.failed(res, { status: 404, message: `Cannot find content ${itemKey}` })
         }
 
         response.success(res, item)
@@ -67,6 +67,32 @@ router.put('/', [isCompleteAuthenticated], async (req, res) => {
             return response.failed(res, { message: 'userId does not match!', status: 403 })
         }
         await articles.updateItem(itemKey, user, items, url, book, meetingKey, userId)
+        response.success(res, true)
+    } catch (e) {
+        console.error(e)
+        response.failed(res, e)
+    }
+})
+
+router.delete('/:itemKey', async (req, res) => {
+    const { itemKey } = req.params
+    const user = req.user
+
+    try {
+        const item = await articles.getItem(itemKey)
+
+        if (!item) {
+            return response.failed(res, { status: 404, message: `can not find item ${itemKey}` })
+        }
+
+        const userId = item.author.userId
+
+        if (user.userId !== userId) {
+            return response.failed(res, { status: 403, message: 'userId does not match.' })
+        }
+
+        await articles.deleteItem(itemKey, userId)
+
         response.success(res, true)
     } catch (e) {
         console.error(e)

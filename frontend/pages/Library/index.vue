@@ -116,7 +116,7 @@ export default {
     },
     methods: {
         goArticle (article) {
-            this.$router.push(`/u/${article.userId}/${article.itemKey}`)
+            this.$router.push(`/article/${article.itemKey}`)
         }
     }
 }
