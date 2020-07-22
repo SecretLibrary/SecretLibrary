@@ -25,7 +25,7 @@ async function createTable () {
                 ],
                 Projection: {
                     ProjectionType: 'INCLUDE',
-                    NonKeyAttributes: ['author', 'book', 'createdAt', 'favorites', 'imageUrl', 'articleItems']
+                    NonKeyAttributes: ['userInfo', 'book', 'createdAt', 'likey', 'imageUrl', 'articleItems']
                 },
                 ProvisionedThroughput: {
                     ReadCapacityUnits: 1,
@@ -42,7 +42,7 @@ async function createTable () {
                 ],
                 Projection: {
                     ProjectionType: 'INCLUDE',
-                    NonKeyAttributes: ['author', 'book', 'createdAt', 'favorites', 'imageUrl', 'articleItems']
+                    NonKeyAttributes: ['userInfo', 'book', 'createdAt', 'likey', 'imageUrl', 'articleItems']
                 },
                 ProvisionedThroughput: {
                     ReadCapacityUnits: 1,
@@ -64,11 +64,11 @@ async function createTable () {
     }
 }
 
-async function addItem (author, book, articleItems, userId, meetingKey = null, imageUrl = null) {
+async function addItem (userInfo, book, articleItems, userId, meetingKey = null, imageUrl = null) {
     const createdAt = gen.generateISOString()
     const itemKey = gen.generateKey(8)
     const commentSize = 0
-    const likeySize = 0
+    const likey = 0
 
     if (!meetingKey) {
         meetingKey = 'NO-MEETING'
@@ -81,12 +81,12 @@ async function addItem (author, book, articleItems, userId, meetingKey = null, i
             createdAt,
             commentSize,
             book,
-            author,
+            userInfo,
             imageUrl,
             articleItems,
             userId,
             meetingKey,
-            likeySize
+            likey
         }
     }
     try {
@@ -107,7 +107,7 @@ async function getItems (userId = null) {
             ExpressionAttributeValues: {
                 ':v_userId': userId
             },
-            ProjectionExpression: 'author, itemKey, book, createdAt, favorites, imageUrl, articleItems',
+            ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, articleItems',
             ScanIndexForward: false
         }
 
@@ -128,23 +128,23 @@ async function getItem (itemKey) {
         Key: {
             itemKey
         },
-        ProjectionExpression: 'author, itemKey, book, createdAt, favorites, imageUrl, articleItems'
+        ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, articleItems'
     }
 
     const { Item } = await documentClient.get(params).promise()
     return Item
 }
 
-async function updateItem (itemKey, user, items, url, book, meetingKey, userId) {
+async function updateItem (itemKey, userInfo, items, url, book, meetingKey, userId) {
     const params = {
         TableName,
         Key: {
             itemKey
         },
-        UpdateExpression: 'set author = :user, userId = :userId, items = :items, url = :url, book = :book, meetingKey = :meetingKey',
+        UpdateExpression: 'set userInfo = :user, userId = :userId, items = :items, url = :url, book = :book, meetingKey = :meetingKey',
         ExpressionAttributeValues: {
             ':userId': userId,
-            ':user': user,
+            ':user': userInfo,
             ':items': items,
             ':url': url,
             ':book': book,

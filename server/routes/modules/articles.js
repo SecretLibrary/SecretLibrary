@@ -45,8 +45,12 @@ router.get('/', async (req, res) => {
 
 router.post('/', [isCompleteAuthenticated], async (req, res) => {
     const { items, url, book, meetingKey } = req.body
-    const user = req.user
-    const userId = user.userId
+    const { userId, profileImage, userName } = req.user
+    const user = {
+        userId,
+        profileImage,
+        userName
+    }
 
     try {
         const articleId = await articles.addItem(user, book, items, userId, meetingKey, url)
@@ -58,8 +62,12 @@ router.post('/', [isCompleteAuthenticated], async (req, res) => {
 
 router.put('/', [isCompleteAuthenticated], async (req, res) => {
     const { items, url, book, meetingKey, itemKey } = req.body
-    const user = req.user
-    const userId = user.userId
+    const { userId, profileImage, userName } = req.user
+    const user = {
+        userId,
+        profileImage,
+        userName
+    }
 
     try {
         const item = articles.getItem(itemKey)

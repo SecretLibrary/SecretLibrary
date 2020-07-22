@@ -11,10 +11,10 @@
                             @click="goUserProfile"
                         >
                             <user-avatar
-                                :user="item.author"
+                                :user="item.userInfo"
                                 class="mr-4"
                             />
-                            {{ item.author.userName }}
+                            {{ item.userInfo.userName }}
                         </div>
                     </v-card-title>
                     <v-card-subtitle class="text-right py-0">
@@ -36,6 +36,17 @@
                 >
                     <v-card-actions class="py-0">
                         <v-spacer />
+                        <v-btn
+                            outlined
+                            class="px-4"
+                            color="red"
+                            @click="doEditArticle"
+                        >
+                            <v-icon>
+                                mdi-pencil-outline
+                            </v-icon>
+                            수정
+                        </v-btn>
                         <v-btn
                             outlined
                             class="px-4"
@@ -158,13 +169,6 @@
                 </v-card-actions>
             </v-card>
         </template>
-        <template v-else>
-            <v-card flat class="ma-auto">
-                <v-card-title class="justify-center">
-                    글이 존재하지 않아요 🙄
-                </v-card-title>
-            </v-card>
-        </template>
     </v-container>
 </template>
 
@@ -220,10 +224,10 @@ export default {
             return this.$auth.user.userId
         },
         isMine () {
-            return this.item.author.userId === this.currentUserId
+            return this.item.userInfo.userId === this.currentUserId
         },
         userId () {
-            return this.item.author.userId
+            return this.item.userInfo.userId
         }
     },
     mounted () {
@@ -249,7 +253,7 @@ export default {
                 title: '삭제하기'
             })
 
-            if (!confirm) {
+            if (confirm !== true) {
                 return
             }
 
@@ -260,6 +264,15 @@ export default {
             } catch (e) {
                 this.$toast.global.error()
             }
+        },
+        doEditArticle () {
+            const { isMine, articleKey } = this
+
+            if (!isMine) {
+                return this.$toast.error('내가 쓴 글이 아니에요!')
+            }
+
+            this.$router.push(`/article/edit/${articleKey}`)
         },
         async doDeleteComment (comment) {
             const { itemKey } = comment

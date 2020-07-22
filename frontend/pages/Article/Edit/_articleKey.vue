@@ -10,21 +10,14 @@
 export default {
     name: 'ModifyArticle',
     middleware: ['registered', 'isMyArticle'],
-    async asyncData ({ params, $axios, error, $auth }) {
+    async asyncData ({ params, $axios }) {
         const { articleKey } = params
-        const result = {
-            articleKey
+        const res = await $axios.get(`/articles/${articleKey}`)
+        const article = res.data.result
+        return {
+            articleKey,
+            article
         }
-
-        try {
-            const { data } = await $axios.get(`/articles/${articleKey}`)
-            result.item = data.result
-        } catch (e) {
-            console.error(e)
-            return error(e)
-        }
-
-        return result
     }
 }
 </script>

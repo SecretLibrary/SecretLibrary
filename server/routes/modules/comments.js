@@ -24,7 +24,7 @@ router.post('/article/:articleKey', [isCompleteAuthenticated], async (req, res) 
     const { articleKey } = req.params
     const { comment, imgUrl } = req.body
     const { userId, profileImage, userName } = req.user
-    const userInfo = {
+    const user = {
         userId,
         profileImage,
         userName
@@ -38,7 +38,7 @@ router.post('/article/:articleKey', [isCompleteAuthenticated], async (req, res) 
     }
 
     try {
-        const items = await comments.addItem(userId, articleKey, userInfo, comment, imgUrl)
+        const items = await comments.addItem(userId, articleKey, user, comment, imgUrl)
         return response.success(res, items)
     } catch (e) {
         console.error(e)

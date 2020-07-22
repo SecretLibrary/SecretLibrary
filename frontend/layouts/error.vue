@@ -4,8 +4,11 @@
             <template v-if="error.statusCode === 404">
                 페이지를 찾을 수 없어요 😥
             </template>
+            <template v-else-if="error.statusCode === 403">
+                권한이 없어요 🧐
+            </template>
             <template v-else>
-                에러가 발생했습니다 😥 ({{ error.statusCode }})
+                에러가 발생했습니다 😱 ({{ error.statusCode }})
             </template>
         </v-card-title>
     </v-card>

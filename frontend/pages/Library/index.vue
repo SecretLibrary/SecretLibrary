@@ -68,10 +68,10 @@
                                 </div>
                                 <v-spacer />
                                 <user-avatar
-                                    :user="article.author"
+                                    :user="article.userInfo"
                                 />
                                 <div class="px-2">
-                                    {{ article.author.userName }}
+                                    {{ article.userInfo.userName }}
                                 </div>
                             </v-card-actions>
                         </v-card>

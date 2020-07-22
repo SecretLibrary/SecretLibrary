@@ -11,7 +11,7 @@ export default async function ({ params, $axios, $auth, error }) {
             return error({ statusCode: 404 })
         }
 
-        if (article.author.userId !== user.userId) {
+        if (article.userInfo.userId !== user.userId) {
             return error({ statusCode: 403 })
         }
     } catch (e) {
