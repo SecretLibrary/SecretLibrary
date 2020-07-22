@@ -218,7 +218,7 @@ export default {
     methods: {
         goUserInfo (user) {
             const { userId } = user
-            this.$router.push(`/u/${userId}`)
+            this.$router.push(`/user/${userId}`)
         },
         doUpdateDate (value) {
             this.$router.push(`/meeting?date=${value}`)

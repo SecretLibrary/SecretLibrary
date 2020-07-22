@@ -86,11 +86,6 @@ export default {
             processing: false
         }
     },
-    computed: {
-        kakaoApiKey () {
-            return process.env.KAKAO_CLIENT_ID
-        }
-    },
     methods: {
         async onClickSocialLogin (item) {
             try {

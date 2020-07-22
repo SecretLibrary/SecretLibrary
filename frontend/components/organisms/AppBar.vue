@@ -23,7 +23,7 @@
                         독후감
                     </v-btn>
                 </nuxt-link>
-                <nuxt-link to="/Write">
+                <nuxt-link to="/Article/Write">
                     <v-btn nuxt text color="main" class="btn">
                         글쓰기
                     </v-btn>
@@ -129,7 +129,7 @@ export default {
         },
         goMyItems () {
             const { user } = this
-            this.$router.push(`/u/${user.userId}`)
+            this.$router.push(`/user/${user.userId}`)
         }
     }
 }

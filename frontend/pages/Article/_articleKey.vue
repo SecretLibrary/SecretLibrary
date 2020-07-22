@@ -185,7 +185,7 @@ export default {
             return moment(value).format('YYYY년 MM월 DD일 HH시')
         }
     },
-    async asyncData ({ params, $axios, $toast, error }) {
+    async asyncData ({ params, $axios, error }) {
         const { articleKey } = params
         const result = {
             articleKey
@@ -235,7 +235,7 @@ export default {
         },
         goUserProfile () {
             const { userId } = this
-            this.$router.push(`/u/${userId}`)
+            this.$router.push(`/user/${userId}`)
         },
         async doDeleteArticle () {
             const { isMine, articleKey } = this
