@@ -36,7 +36,7 @@
                 >
                     <v-fade-transition>
                         <v-card-actions
-                            v-show="!loading && imageLoaded"
+                            v-show="!loading"
                             class="py-0"
                         >
                             <v-spacer />
