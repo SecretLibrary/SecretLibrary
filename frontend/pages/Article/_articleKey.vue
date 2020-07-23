@@ -254,7 +254,8 @@ export default {
     },
     computed: {
         articleItems () {
-            return this.item.articleItems
+            const articleItems = this.item.articleItems
+            return articleItems.sort((a, b) => a.order < b.order ? -1 : a.order > b.order ? 1 : 0)
         },
         currentUserId () {
             if (!this.$auth.loggedIn) {

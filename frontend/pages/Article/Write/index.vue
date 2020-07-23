@@ -261,10 +261,12 @@ export default {
 
             this.qnaList = selectedQuestionIndex
                 .sort((a, b) => a > b ? 1 : -1)
-                .map(index => questions[index]).reduce((prev, item) => {
+                .map(index => questions[index])
+                .reduce((prev, item, index) => {
                     prev.push({
                         question: item.text,
-                        text: ''
+                        text: '',
+                        order: index
                     })
                     return prev
                 }, [])

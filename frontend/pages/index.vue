@@ -69,6 +69,10 @@ export default {
         color: white;
         font-size: 40px;
         font-weight: bolder;
+        p {
+            word-break: keep-all;
+            margin-bottom: 4px;
+        }
     }
 
     .info-inner {
