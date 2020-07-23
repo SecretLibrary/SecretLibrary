@@ -80,6 +80,7 @@ export default {
             font-size: 30px;
             font-weight: bold;
             color: $article;
+            word-break: keep-all;
 
             span {
                 color: $main;
