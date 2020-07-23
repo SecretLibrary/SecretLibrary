@@ -95,7 +95,7 @@ router.delete('/:itemKey', async (req, res) => {
             return response.failed(res, { status: 404, message: `can not find item ${itemKey}` })
         }
 
-        const userId = item.author.userId
+        const userId = item.userInfo.userId
 
         if (user.userId !== userId) {
             return response.failed(res, { status: 403, message: 'userId does not match.' })

@@ -35,6 +35,19 @@
                     class="mb-2"
                 >
                     <v-card-actions class="py-0">
+                        <v-btn
+                            icon
+                            color="main"
+                            @click="doPressLikey"
+                        >
+                            <v-icon v-if="isLikeyPressed">
+                                mdi-heart
+                            </v-icon>
+                            <v-icon v-else>
+                                mdi-heart-outline
+                            </v-icon>
+                        </v-btn>
+                        {{ likeys.length }}
                         <v-spacer />
                         <v-btn
                             outlined
@@ -79,6 +92,7 @@
                     </template>
                 </div>
             </v-card>
+            <!-- 댓글 카드 -->
             <v-card
                 flat
                 outlined
@@ -209,7 +223,8 @@ export default {
         return {
             commentCard: false,
             comment: '',
-            comments: []
+            comments: [],
+            likeys: []
         }
     },
     computed: {
@@ -228,10 +243,15 @@ export default {
         },
         userId () {
             return this.item.userInfo.userId
+        },
+        isLikeyPressed () {
+            const { likeys, userId } = this
+            return likeys.some(item => item.userId === userId)
         }
     },
     mounted () {
-        this.updateComment()
+        this.fetchComment()
+        this.fetchLikey()
     },
     methods: {
         goUrl (url) {
@@ -278,7 +298,7 @@ export default {
             const { itemKey } = comment
             try {
                 await this.$axios.delete(`/comments/${itemKey}`)
-                await this.updateComment()
+                await this.fetchComment()
                 this.$toast.info('댓글이 삭제됬어요! 😮')
             } catch (e) {
                 console.error(e)
@@ -302,13 +322,33 @@ export default {
                 this.$toast.global.error()
             }
 
-            await this.updateComment()
+            await this.fetchComment()
         },
-        async updateComment () {
+        async doPressLikey () {
+            const { articleKey } = this
+            try {
+                await this.$axios.post(`/likey/article/${articleKey}`)
+                await this.fetchLikey()
+            } catch (e) {
+                console.error(e)
+                this.$toast.global.error()
+            }
+        },
+        async fetchComment () {
             const { articleKey } = this
             try {
                 const { data } = await this.$axios.get(`/comments/article/${articleKey}`)
                 this.comments = sortByCreatedAt(data.result)
+            } catch (e) {
+                console.error(e)
+                this.$toast.global.error()
+            }
+        },
+        async fetchLikey () {
+            const { articleKey } = this
+            try {
+                const { data } = await this.$axios.get(`/likey/article/${articleKey}`)
+                this.likeys = sortByCreatedAt(data.result)
             } catch (e) {
                 console.error(e)
                 this.$toast.global.error()

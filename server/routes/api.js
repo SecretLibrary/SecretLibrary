@@ -13,6 +13,7 @@ const articles = require('./modules/articles')
 const user = require('./modules/user')
 const social = require('./modules/social')
 const comments = require('./modules/comments')
+const likey = require('./modules/likey')
 
 module.exports = [
     { path: 'images', router: images },
@@ -28,5 +29,6 @@ module.exports = [
     { path: 'articles', router: articles },
     { path: 'user', router: user },
     { path: 'social', router: social },
-    { path: 'comments', router: comments }
+    { path: 'comments', router: comments },
+    { path: 'likey', router: likey }
 ]

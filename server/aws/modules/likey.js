@@ -24,7 +24,7 @@ async function createTable () {
                     }
                 ],
                 Projection: {
-                    ProjectionType: 'KEYS_ONLY'
+                    ProjectionType: 'ALL'
                 },
                 ProvisionedThroughput: {
                     ReadCapacityUnits: 1,
@@ -40,7 +40,7 @@ async function createTable () {
                     }
                 ],
                 Projection: {
-                    ProjectionType: 'KEYS_ONLY'
+                    ProjectionType: 'ALL'
                 },
                 ProvisionedThroughput: {
                     ReadCapacityUnits: 1,
@@ -62,7 +62,7 @@ async function createTable () {
     }
 }
 
-async function addItem (userId, articleKey, point) {
+async function addItem (userId, articleKey, userInfo) {
     const createdAt = gen.generateISOString()
     const itemKey = gen.generateKey(8)
 
@@ -71,8 +71,8 @@ async function addItem (userId, articleKey, point) {
         Item: {
             userId,
             articleKey,
-            point,
             createdAt,
+            userInfo,
             itemKey
         }
     }
@@ -85,7 +85,51 @@ async function addItem (userId, articleKey, point) {
     }
 }
 
+async function getItemsByArticleKey (articleKey) {
+    const params = {
+        TableName,
+        IndexName: 'articleKeyIndex',
+        KeyConditionExpression: 'articleKey = :v_articleKey',
+        ExpressionAttributeValues: {
+            ':v_articleKey': articleKey
+        },
+        ScanIndexForward: false
+    }
+
+    const { Items } = await documentClient.query(params).promise()
+    return Items
+}
+
+async function getItemsByUserId (userId) {
+    const params = {
+        TableName,
+        IndexName: 'userIdIndex',
+        KeyConditionExpression: 'userId = :v_userId',
+        ExpressionAttributeValues: {
+            ':v_userId': userId
+        },
+        ScanIndexForward: false
+    }
+
+    const { Items } = await documentClient.query(params).promise()
+    return Items
+}
+
+async function deleteItem (itemKey) {
+    const params = {
+        TableName,
+        Key: {
+            itemKey
+        },
+        ConditionExpression: 'attribute_exists(itemKey)'
+    }
+    return await documentClient.delete(params).promise()
+}
+
 module.exports = {
     createTable,
-    addItem
+    getItemsByUserId,
+    getItemsByArticleKey,
+    addItem,
+    deleteItem
 }
