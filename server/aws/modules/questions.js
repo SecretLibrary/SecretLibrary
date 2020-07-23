@@ -28,6 +28,7 @@ async function createTable () {
 
 async function addItem (userId, userName, text, categoryCode) {
     const itemKey = gen.generateKey()
+    const createdAt = gen.generateISOString()
 
     const params = {
         TableName,
@@ -36,6 +37,7 @@ async function addItem (userId, userName, text, categoryCode) {
             categoryCode,
             userId,
             userName,
+            createdAt,
             text
         }
     }

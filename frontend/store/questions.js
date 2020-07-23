@@ -1,4 +1,4 @@
-import { setItem } from '../utils/Object'
+import { setItem, sortByCreatedAt } from '../utils/Object'
 
 export const state = () => ({
     items: []
@@ -64,7 +64,7 @@ export const actions = {
     async fetch ({ commit }) {
         try {
             const res = await this.$axios.get('/questions')
-            const questions = res.data.result
+            const questions = sortByCreatedAt(res.data.result)
             commit('add', questions)
             return res
         } catch (e) {

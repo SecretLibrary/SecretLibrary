@@ -167,11 +167,27 @@ async function deleteItem (itemKey) {
     return await documentClient.delete(params).promise()
 }
 
+async function updateLikey (itemKey, likey) {
+    const params = {
+        TableName,
+        Key: {
+            itemKey
+        },
+        UpdateExpression: 'set likey = :likey',
+        ExpressionAttributeValues: {
+            ':likey': likey,
+        },
+        ReturnValues: 'UPDATED_NEW'
+    }
+    return await documentClient.update(params).promise()
+}
+
 module.exports = {
     createTable,
     getItems,
     getItem,
     addItem,
+    deleteItem,
     updateItem,
-    deleteItem
+    updateLikey
 }

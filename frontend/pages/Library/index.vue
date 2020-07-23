@@ -17,6 +17,7 @@
                             class="pa-2 ma-auto"
                             :outlined="!hover"
                             :elevation="hover ? 4 : 0"
+                            :ripple="false"
                             @click="goArticle(article)"
                         >
                             <v-card-title class="text-h5 justify-center">
@@ -55,7 +56,15 @@
                                                 </v-list-item>
                                             </template>
                                         </v-list>
-                                        <div class="text-right">
+                                        <div class="d-flex justify-space-between align-center">
+                                            <div>
+                                                <v-btn color="main" aria-readonly="true" icon>
+                                                    <v-icon>
+                                                        mdi-heart
+                                                    </v-icon>
+                                                    {{ article.likey }}
+                                                </v-btn>
+                                            </div>
                                             ...와 {{ article.articleItems.length - 3 }}개의 질문
                                         </div>
                                     </v-col>

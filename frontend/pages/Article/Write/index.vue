@@ -206,16 +206,18 @@ export default {
     watch: {
         selectedQuestionIndex (after, before) {
             if (after.length >= 4 && after.length - before.length > 0) {
-                window.scrollTo({
-                    top: 1000,
-                    behavior: 'smooth'
+                this.$vuetify.goTo(1000, {
+                    duration: 150,
+                    offset: 0,
+                    easing: 'easeInOutCubic'
                 })
             }
         },
         step () {
-            window.scrollTo({
-                top: 0,
-                behavior: 'smooth'
+            this.$vuetify.goTo(0, {
+                duration: 150,
+                offset: 0,
+                easing: 'easeInOutCubic'
             })
         }
     },
@@ -268,19 +270,25 @@ export default {
                 return
             }
 
-            this.qnaList = selectedQuestionIndex.map(index => questions[index]).reduce((prev, item) => {
-                prev.push({
-                    question: item.text,
-                    text: ''
-                })
-                return prev
-            }, [])
+            this.qnaList = selectedQuestionIndex
+                .sort((a, b) => a > b ? 1 : -1)
+                .map(index => questions[index]).reduce((prev, item) => {
+                    prev.push({
+                        question: item.text,
+                        text: ''
+                    })
+                    return prev
+                }, [])
 
             await this.$nextTick()
             this.step = 2
             await this.$nextTick()
 
-            window.scrollTo(0, 0)
+            await this.$vuetify.goTo(0, {
+                duration: 150,
+                offset: 0,
+                easing: 'easeInOutCubic'
+            })
         },
         goBack () {
             this.step -= 1
