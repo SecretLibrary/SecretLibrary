@@ -23,13 +23,13 @@
             padding: 0 !important;
             .v-text-field__slot {
                 textarea {
-                    font-size: 1.2em;
+                    font-size: 20px;
                     background-attachment: local;
                     background-image:
                         linear-gradient(to right, white 0, transparent 0),
                         linear-gradient(to left, white 0, transparent 0),
-                        repeating-linear-gradient(white, white 30px, #ccc 30px, #ccc 31px, white 31px);
-                    line-height: 1.65;
+                        repeating-linear-gradient(white, white 40px, #ccc 40px, #ccc 41px, white 41px);
+                    line-height: 41px;
                 }
                 input {
                     height: 40px;

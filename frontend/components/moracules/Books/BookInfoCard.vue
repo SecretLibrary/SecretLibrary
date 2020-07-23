@@ -5,17 +5,17 @@
             outlined
             flat
             class="pa-4 mb-4"
-            style="border-radius: 10px;"
+            style="border-radius: 10px; transition: opacity 100ms;"
+            :ripple="false"
+            :style="imageLoaded ? 'opacity: 1;' : 'opacity: 0;'"
             @click="$emit('click')"
         >
             <div class="d-flex">
                 <v-img
                     :src="thumbnail"
                     max-width="100"
-                    :class="{
-                        'book-border': loaded
-                    }"
-                    @load="loaded = true"
+                    class="book-border"
+                    @load="loaded"
                 />
                 <div>
                     <v-card-title style="word-break: keep-all;">
@@ -75,13 +75,19 @@ export default {
     },
     data () {
         return {
-            loaded: false
+            imageLoaded: false
         }
     },
     computed: {
         imgUrl () {
             const { thumbnail } = this
             return string.httpToHttps(thumbnail)
+        }
+    },
+    methods: {
+        loaded () {
+            this.imageLoaded = true
+            this.$emit('load', true)
         }
     }
 }

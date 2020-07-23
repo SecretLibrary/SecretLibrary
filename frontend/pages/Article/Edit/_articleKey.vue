@@ -25,6 +25,7 @@
                             :key="`${qnaIndex}-text-area`"
                             v-model="qna.text"
                             :rules="[rules.required, rules.length(5)]"
+                            row-height="40"
                             auto-grow
                             flat
                             solo

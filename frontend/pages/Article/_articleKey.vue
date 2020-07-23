@@ -28,72 +28,92 @@
                     :thumbnail="item.book.thumbnail"
                     :datetime="item.book.datetime"
                     @click="goUrl(item.book.url)"
+                    @load="bookCardLoaded = true"
                 />
                 <v-card
-                    v-if="isMine"
                     flat
                     class="mb-2"
                 >
-                    <v-card-actions class="py-0">
-                        <v-btn
-                            icon
-                            color="main"
-                            @click="doPressLikey"
+                    <v-fade-transition>
+                        <v-card-actions
+                            v-show="!loading && imageLoaded"
+                            class="py-0"
                         >
-                            <v-icon v-if="isLikeyPressed">
-                                mdi-heart
-                            </v-icon>
-                            <v-icon v-else>
-                                mdi-heart-outline
-                            </v-icon>
-                        </v-btn>
-                        {{ likeys.length }}
-                        <v-spacer />
-                        <v-btn
-                            outlined
-                            class="px-4"
-                            color="red"
-                            @click="doEditArticle"
-                        >
-                            <v-icon>
-                                mdi-pencil-outline
-                            </v-icon>
-                            수정
-                        </v-btn>
-                        <v-btn
-                            outlined
-                            class="px-4"
-                            color="red"
-                            @click="doDeleteArticle"
-                        >
-                            <v-icon>
-                                mdi-delete-outline
-                            </v-icon>
-                            삭제
-                        </v-btn>
-                    </v-card-actions>
-                </v-card>
-                <div class="mt-8">
-                    <template v-for="(article, index) in articleItems">
-                        <div :key="index" class="mb-4 bl">
-                            <div class="bl-text pl-0">
-                                {{ article.question }}
-                            </div>
-                            <v-textarea
-                                v-model="article.text"
-                                readonly
-                                auto-grow
-                                flat
-                                solo
+                            <v-spacer />
+
+                            <v-btn
+                                v-if="isMine"
+                                outlined
+                                min-width="80"
+                                class="px-4"
+                                color="red"
+                                @click="doDeleteArticle"
+                            >
+                                <v-icon>
+                                    mdi-delete-outline
+                                </v-icon>
+                                삭제
+                            </v-btn>
+
+                            <v-btn
+                                v-if="isMine"
+                                outlined
+                                min-width="80"
+                                class="px-4"
+                                color="red"
+                                @click="doEditArticle"
+                            >
+                                <v-icon>
+                                    mdi-pencil-outline
+                                </v-icon>
+                                수정
+                            </v-btn>
+
+                            <v-btn
+                                outlined
+                                min-width="80"
                                 color="main"
-                                class="mb-8 note"
-                            />
+                                class="d-flex align-center px-4"
+                                @click="doPressLikey"
+                            >
+                                <v-icon v-if="isLikeyPressed">
+                                    mdi-heart
+                                </v-icon>
+                                <v-icon v-else>
+                                    mdi-heart-outline
+                                </v-icon>
+                                {{ likey }}
+                            </v-btn>
+                        </v-card-actions>
+                    </v-fade-transition>
+                </v-card>
+                <v-fade-transition>
+                    <template v-show="!loading && imageLoaded">
+                        <div class="mt-8">
+                            <template v-for="(article, index) in articleItems">
+                                <div :key="index" class="mb-4 bl">
+                                    <div class="bl-text pl-0">
+                                        {{ article.question }}
+                                    </div>
+                                    <v-textarea
+                                        v-model="article.text"
+                                        readonly
+                                        row-height="40"
+                                        auto-grow
+                                        flat
+                                        solo
+                                        color="main"
+                                        class="mb-8 note"
+                                    />
+                                </div>
+                            </template>
                         </div>
                     </template>
-                </div>
+                </v-fade-transition>
             </v-card>
             <!-- 댓글 카드 -->
             <v-card
+                v-show="bookCardLoaded && !loading"
                 flat
                 outlined
                 class="article-card"
@@ -113,7 +133,9 @@
                                 <h4>
                                     {{ item.userInfo.userName }}
                                 </h4>
-                                {{ item.comment }}
+                                <div class="comment-text">
+                                    {{ item.comment }}
+                                </div>
                                 <p>
                                     {{ item.createdAt | createdAt }}
                                 </p>
@@ -156,14 +178,13 @@
                     </v-card-subtitle>
                 </template>
                 <v-card-actions>
-                    <v-textarea
+                    <v-text-field
                         v-model="comment"
                         color="main"
                         rows="1"
                         solo
                         dense
                         flat
-                        auto-grow
                         outlined
                         hide-details
                         class="mr-4"
@@ -194,6 +215,7 @@ import { sortByCreatedAt } from '~/utils/Object'
 
 export default {
     name: 'UserArticle',
+    middleware: ['registered'],
     components: { UserAvatar, BookInfoCard },
     filters: {
         authors (value) {
@@ -224,7 +246,10 @@ export default {
             commentCard: false,
             comment: '',
             comments: [],
-            likeys: []
+            likeys: [],
+            likey: 0,
+            loading: true,
+            bookCardLoaded: false
         }
     },
     computed: {
@@ -249,9 +274,14 @@ export default {
             return likeys.some(item => item.userId === userId)
         }
     },
-    mounted () {
-        this.fetchComment()
-        this.fetchLikey()
+    async mounted () {
+        this.loading = true
+        this.likey = this.item.likey
+
+        await this.fetchComment()
+        await this.fetchLikey()
+
+        this.loading = false
     },
     methods: {
         goUrl (url) {
@@ -349,6 +379,7 @@ export default {
             try {
                 const { data } = await this.$axios.get(`/likey/article/${articleKey}`)
                 this.likeys = sortByCreatedAt(data.result)
+                this.likey = this.likeys.length
             } catch (e) {
                 console.error(e)
                 this.$toast.global.error()
@@ -395,6 +426,11 @@ export default {
             font-size: 0.8em;
             color: #7F828B;
             margin-bottom: 0;
+        }
+
+        &-text {
+            width: 100%;
+            word-break: keep-all;
         }
     }
 

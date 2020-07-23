@@ -26,20 +26,14 @@
                     @blur.prevent="searchBook"
                 />
                 <template v-for="(item, index) in books">
-                    <v-skeleton-loader
-                        :key="index"
-                        :loading="loadedImages[item.thumbnail] === false"
-                        type="list-item-two-line"
-                    >
-                        <book-info-card
-                            :title="item.title"
-                            :thumbnail="item.thumbnail"
-                            :authors="item.authors"
-                            :publisher="item.publisher"
-                            @click="selectBook(item)"
-                            @load="pushLoadedImages(item.thumbnail)"
-                        />
-                    </v-skeleton-loader>
+                    <book-info-card
+                        :key="`${index}-book-info-card`"
+                        :title="item.title"
+                        :thumbnail="item.thumbnail"
+                        :authors="item.authors"
+                        :publisher="item.publisher"
+                        @click="selectBook(item)"
+                    />
                 </template>
             </section>
             <section v-if="step === 1">
@@ -116,6 +110,7 @@
                                 v-model="qna.text"
                                 :rules="[rules.required, rules.length(5)]"
                                 auto-grow
+                                row-height="40"
                                 flat
                                 solo
                                 row="4"
@@ -158,7 +153,6 @@
 </template>
 
 <script>
-import Vue from 'vue'
 import BookInfoCard from '~/components/moracules/Books/BookInfoCard'
 import dbUtils from '~/utils/DbUtils'
 
@@ -175,7 +169,6 @@ export default {
         return {
             bookQuery: '',
             book: null,
-            loadedImages: {},
             selectedQuestionIndex: [],
             qnaList: [],
             image: null,
@@ -230,9 +223,6 @@ export default {
         ])
     },
     methods: {
-        pushLoadedImages (thumbnail) {
-            Vue.set(this.loadedImages, thumbnail, true)
-        },
         async searchBook () {
             const { step, bookQuery } = this
 
@@ -246,7 +236,6 @@ export default {
 
             try {
                 await this.$store.dispatch('books/fetch', { title: bookQuery })
-                this.loadedImages = {}
                 this.selectedQuestionIndex = []
             } catch (e) {
                 this.$toast.global.error()
