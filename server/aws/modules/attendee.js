@@ -57,7 +57,7 @@ async function createTable () {
     }
 }
 
-async function addItem (meetingKey, userId, userName, profileImage) {
+async function addItem (meetingKey, userId, userInfo) {
     const itemKey = gen.generateKey()
     const createdAt = gen.generateISOString()
     const params = {
@@ -66,8 +66,7 @@ async function addItem (meetingKey, userId, userName, profileImage) {
             itemKey,
             meetingKey,
             userId,
-            userName,
-            profileImage,
+            userInfo,
             createdAt
         }
     }

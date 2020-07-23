@@ -93,12 +93,12 @@
                             >
                                 <v-list-item-avatar>
                                     <user-avatar
-                                        :user="item"
+                                        :user="item.userInfo"
                                     />
                                 </v-list-item-avatar>
                                 <v-list-item-content>
                                     <v-list-item-title>
-                                        {{ item.userName }}
+                                        {{ item.userInfo.userName }}
                                     </v-list-item-title>
                                 </v-list-item-content>
                             </v-list-item>
@@ -244,7 +244,10 @@ export default {
                 this.meetings = meetings
                 await this.$nextTick()
 
-                const targetMeeting = meetings.filter(item => moment(item.startDate).format('YYYY-MM-DD') === moment(date).format('YYYY-MM-DD'))[0] || null
+                const targetMeeting = meetings
+                    .filter(item => moment(item.startDate)
+                        .format('YYYY-MM-DD') === moment(date)
+                        .format('YYYY-MM-DD'))[0] || null
 
                 if (targetMeeting === null) {
                     this.targetMeeting = null

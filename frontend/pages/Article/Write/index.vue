@@ -296,10 +296,10 @@ export default {
             user = dbUtils.user(user)
             book = dbUtils.book(book)
 
-            try {
-                let url = null
+            let imageUrl = null
 
-                if (image !== null) {
+            if (image) {
+                try {
                     const formData = new FormData()
                     formData.append('img', image)
                     const { data } = await this.$axios.post('/images', formData, {
@@ -307,14 +307,18 @@ export default {
                             'Content-Type': 'multipart/form-data'
                         }
                     })
-                    url = data
+                    imageUrl = data
+                } catch (e) {
+                    this.$toast.error('이미지 업로드에 실패하였습니다.')
                 }
+            }
 
+            try {
                 const { data } = await this.$axios.post('/articles', {
                     user,
                     book,
                     items: qnaList,
-                    url
+                    imageUrl
                 })
 
                 this.$toast.success('완료되었습니다.')
@@ -323,6 +327,11 @@ export default {
                 console.error(e)
                 this.$toast.global.error()
             }
+        }
+    },
+    head () {
+        return {
+            title: '독후감 쓰기'
         }
     }
 }

@@ -25,7 +25,7 @@ async function createTable () {
                 ],
                 Projection: {
                     ProjectionType: 'INCLUDE',
-                    NonKeyAttributes: ['userInfo', 'book', 'createdAt', 'likey', 'imageUrl', 'articleItems']
+                    NonKeyAttributes: ['userInfo', 'book', 'createdAt', 'likey', 'imageUrl', 'articleItems', 'userId', 'meetingKey']
                 },
                 ProvisionedThroughput: {
                     ReadCapacityUnits: 1,
@@ -42,7 +42,7 @@ async function createTable () {
                 ],
                 Projection: {
                     ProjectionType: 'INCLUDE',
-                    NonKeyAttributes: ['userInfo', 'book', 'createdAt', 'likey', 'imageUrl', 'articleItems']
+                    NonKeyAttributes: ['userInfo', 'book', 'createdAt', 'likey', 'imageUrl', 'articleItems', 'userId', 'meetingKey']
                 },
                 ProvisionedThroughput: {
                     ReadCapacityUnits: 1,
@@ -107,7 +107,7 @@ async function getItems (userId = null) {
             ExpressionAttributeValues: {
                 ':v_userId': userId
             },
-            ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, articleItems',
+            ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, articleItems, userId, meetingKey',
             ScanIndexForward: false
         }
 
@@ -128,25 +128,25 @@ async function getItem (itemKey) {
         Key: {
             itemKey
         },
-        ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, articleItems'
+        ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, articleItems, userId, meetingKey'
     }
 
     const { Item } = await documentClient.get(params).promise()
     return Item
 }
 
-async function updateItem (itemKey, userInfo, items, url, book, meetingKey, userId) {
+async function updateItem (itemKey, userInfo, articleItems, imageUrl, book, meetingKey, userId) {
     const params = {
         TableName,
         Key: {
             itemKey
         },
-        UpdateExpression: 'set userInfo = :user, userId = :userId, items = :items, url = :url, book = :book, meetingKey = :meetingKey',
+        UpdateExpression: 'set userInfo = :user, userId = :userId, articleItems = :articleItems, imageUrl = :imageUrl, book = :book, meetingKey = :meetingKey',
         ExpressionAttributeValues: {
             ':userId': userId,
             ':user': userInfo,
-            ':items': items,
-            ':url': url,
+            ':articleItems': articleItems,
+            ':imageUrl': imageUrl,
             ':book': book,
             ':meetingKey': meetingKey
         },

@@ -52,8 +52,7 @@ router.post('/', [isCompleteAuthenticated, isAdmin], async (req, res) => {
 
     if (!check) {
         const message = 'Can not find some of params'
-        response.failed(res, { message })
-        return
+        return response.failed(res, { message })
     }
 
     try {
@@ -68,6 +67,7 @@ router.post('/', [isCompleteAuthenticated, isAdmin], async (req, res) => {
 router.post('/attend', [isCompleteAuthenticated], async (req, res) => {
     const { meetingKey } = req.body
     const { userId, profileImage, userName } = req.user
+    const userInfo = { userId, profileImage, userName }
     const check = paramCheck({ meetingKey })
 
     if (!check) {
@@ -98,23 +98,23 @@ router.post('/attend', [isCompleteAuthenticated], async (req, res) => {
             return response.failed(res, { message, status })
         }
 
-        const data = await attendee.addItem(meetingKey, userId, userName, profileImage)
+        const data = await attendee.addItem(meetingKey, userId, userInfo)
         response.success(res, data)
     } catch (e) {
         response.failed(res, e)
     }
 })
 
-router.put('/state/:id', [isCompleteAuthenticated, isAdmin], async (req, res) => {
+router.put('/state/:itemKey', [isCompleteAuthenticated, isAdmin], async (req, res) => {
     let { state } = req.body
-    const id = req.params.id
+    const itemKey = req.params.itemKey
 
     if (state === undefined || !Object.keys(constState).some(key => constState[key] === state)) {
         state = constState.close
     }
 
     try {
-        const data = await meetings.changeState(id, state)
+        const data = await meetings.changeState(itemKey, state)
         response.success(res, data)
     } catch (e) {
         console.error(e)

@@ -44,7 +44,7 @@ router.get('/', async (req, res) => {
 })
 
 router.post('/', [isCompleteAuthenticated], async (req, res) => {
-    const { items, url, book, meetingKey } = req.body
+    const { items, imageUrl, book, meetingKey } = req.body
     const { userId, profileImage, userName } = req.user
     const user = {
         userId,
@@ -53,15 +53,16 @@ router.post('/', [isCompleteAuthenticated], async (req, res) => {
     }
 
     try {
-        const articleId = await articles.addItem(user, book, items, userId, meetingKey, url)
+        const articleId = await articles.addItem(user, book, items, userId, meetingKey, imageUrl)
         response.success(res, articleId)
     } catch (e) {
         response.failed(res, e)
     }
 })
 
-router.put('/', [isCompleteAuthenticated], async (req, res) => {
-    const { items, url, book, meetingKey, itemKey } = req.body
+router.put('/:itemKey', [isCompleteAuthenticated], async (req, res) => {
+    const { itemKey } = req.params
+    const { items, imageUrl, book, meetingKey } = req.body
     const { userId, profileImage, userName } = req.user
     const user = {
         userId,
@@ -70,11 +71,12 @@ router.put('/', [isCompleteAuthenticated], async (req, res) => {
     }
 
     try {
-        const item = articles.getItem(itemKey)
+        const item = await articles.getItem(itemKey)
+
         if (item.userId !== userId) {
             return response.failed(res, { message: 'userId does not match!', status: 403 })
         }
-        await articles.updateItem(itemKey, user, items, url, book, meetingKey, userId)
+        await articles.updateItem(itemKey, user, items, imageUrl, book, meetingKey, userId)
         response.success(res, true)
     } catch (e) {
         console.error(e)
