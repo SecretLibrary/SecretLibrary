@@ -25,11 +25,17 @@
 
 ### 2020-07-13 TODO
 - [x] 회원가입 프로세스 변경 필요 (https://stackoverflow.com/questions/35259055/ask-user-to-complete-registration-after-social-login-through-passport) 참조
-- [ ] 모임후기 기능 구현
 
 
 ### 2020-07-20 TODO
 - [x] 독후감 삭제 기능 구현
-- [ ] 독후감 수정 기능 구현
+- [x] 독후감 수정 기능 구현
 - [x] 모바일 화면 최적화 진행 필요
-- [ ] 좋아요 버튼 구현
+- [x] 좋아요 버튼 구현
+
+
+### 2020-07-24 TODO
+- [ ] 모임 후기 기능 구현
+- [ ] 모바일 사용성 향상
+- [ ] 모임 모집 페이지 디자인 개선
+- [ ] 모임 관련 테이블 정리
