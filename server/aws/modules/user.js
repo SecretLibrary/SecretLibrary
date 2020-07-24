@@ -144,19 +144,6 @@ async function putItem (itemKey, email, gender, userName, profileImage, userId, 
     }
 }
 
-/*
-{
-    "TableName": "GameScores",
-    "IndexName": "GameTitleIndex",
-    "KeyConditionExpression": "GameTitle = :v_title",
-    "ExpressionAttributeValues": {
-        ":v_title": {"S": "Meteor Blasters"}
-    },
-    "ProjectionExpression": "UserId, TopScore",
-    "ScanIndexForward": false
-}
-*/
-
 async function getUserById (userId) {
     const params = {
         TableName,

@@ -7,7 +7,7 @@
             <div class="bl-input">
                 <v-text-field
                     v-model="userId"
-                    class="text-h4"
+                    class="text-h5"
                     solo
                     flat
                     readonly
@@ -19,7 +19,7 @@
             <div class="bl-input">
                 <v-text-field
                     v-model="userName"
-                    class="text-h4"
+                    class="text-h5"
                     solo
                     flat
                 />
