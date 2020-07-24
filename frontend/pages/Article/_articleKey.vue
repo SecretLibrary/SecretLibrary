@@ -82,7 +82,9 @@
                                 <v-icon v-else>
                                     mdi-heart-outline
                                 </v-icon>
-                                {{ likey }}
+                                <span class="ml-2">
+                                    {{ likey }}
+                                </span>
                             </v-btn>
                         </v-card-actions>
                     </v-fade-transition>
@@ -271,8 +273,9 @@ export default {
             return this.item.userInfo.userId
         },
         isLikeyPressed () {
-            const { likeys, userId } = this
-            return likeys.some(item => item.userId === userId)
+            const { likeys } = this
+            const user = this.$auth.user
+            return likeys.some(item => item.userId === user.userId)
         }
     },
     async mounted () {

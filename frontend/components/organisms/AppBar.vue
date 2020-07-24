@@ -49,6 +49,11 @@
                         >
                             내 서재
                         </v-list-item>
+                        <v-list-item
+                            @click="$router.push('/setting')"
+                        >
+                            설정
+                        </v-list-item>
                         <v-list-item v-if="isManager" @click="goManager">
                             🧐 운영진
                         </v-list-item>
