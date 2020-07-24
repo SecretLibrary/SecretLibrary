@@ -28,11 +28,15 @@ export default {
         size: {
             type: Number,
             default: 48
+        },
+        https: {
+            type: Boolean,
+            default: true
         }
     },
     computed: {
         imgUrl () {
-            const { user } = this
+            const { user, https } = this
             if (!user) {
                 return null
             }
@@ -41,7 +45,10 @@ export default {
                 return null
             }
 
-            return string.httpToHttps(user.profileImage)
+            if (https) {
+                return string.httpToHttps(user.profileImage)
+            }
+            return user.profileImage
         }
     }
 }

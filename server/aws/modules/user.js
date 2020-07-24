@@ -85,6 +85,29 @@ async function addItem (itemKey, email, gender, userName, profileImage, userId, 
     }
 }
 
+async function updateProfile (itemKey, userName, introduce, profileImage) {
+    const params = {
+        TableName,
+        Key: {
+            itemKey
+        },
+        UpdateExpression: 'set userName = :userName, introduce = :introduce, profileImage = :profileImage',
+        ExpressionAttributeValues: {
+            ':userName': userName,
+            ':introduce': introduce,
+            ':profileImage': profileImage
+        }
+    }
+
+    try {
+        await documentClient.update(params).promise()
+        return itemKey
+    } catch (e) {
+        console.error('Unable to add item to table. Error JSON:', JSON.stringify(e, null, 2))
+        throw e
+    }
+}
+
 async function putItem (itemKey, email, gender, userName, profileImage, userId, registered, introduction = '') {
     const params = {
         TableName,
@@ -178,5 +201,6 @@ module.exports = {
     getItem,
     getItemList,
     getUserById,
+    updateProfile,
     putItem
 }

@@ -1,41 +1,35 @@
+
 const express = require('express')
 const axios = require('axios')
 const sha256 = require('js-sha256').sha256
 const userHandler = require('../../aws/modules/user')
 const object = require('../../utils/object')
-const { isIncompleteAuthenticated } = require('../../middlewares/auth')
+const { isIncompleteAuthenticated, isCompleteAuthenticated } = require('../../middlewares/auth')
 
 const response = require('../utils/response')
 const router = express.Router()
 
-const hashKey = process.env.SESSION_KEY
-
-// router.post('/', async (req, res) => {
-//     const { email, gender, name, thumbnail, userId } = req.body
-//     const user = req.user
-//
-//     try {
-//         const { id } = data
-//         const provider = 'KAKAO'
-//
-//         const userKey = sha256(`${provider}_${id}_${hashKey}`)
-//
-//         await userHandler.addItem(userKey, email, gender, name, thumbnail, userId)
-//         response.success(res)
-//     } catch (e) {
-//         response.failed(res, e)
-//     }
-// })
-
 router.put('/', [isIncompleteAuthenticated], async (req, res) => {
     const { email, gender, name, thumbnail, userId } = req.body
-    const user = req.user
-    const { itemKey } = user
+    const { itemKey } = req.user
     const registered = true
 
     try {
         const item = await userHandler.putItem(itemKey, email, gender, name, thumbnail, userId, registered)
         response.success(res, item)
+    } catch (e) {
+        console.error(e)
+        response.failed(res, e)
+    }
+})
+
+router.put('/updateProfile', [isCompleteAuthenticated], async (req, res) => {
+    const { userName, profileImage, introduce } = req.body
+    const { itemKey } = req.user
+
+    try {
+        await userHandler.updateProfile(itemKey, userName, introduce, profileImage)
+        response.success(res, true)
     } catch (e) {
         console.error(e)
         response.failed(res, e)

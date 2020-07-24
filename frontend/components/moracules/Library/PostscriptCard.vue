@@ -2,7 +2,6 @@
     <v-hover v-slot:default="{ hover }">
         <v-card
             flat
-            max-width="500"
             class="pa-2 ma-auto"
             :outlined="!hover"
             :elevation="hover ? 4 : 0"
