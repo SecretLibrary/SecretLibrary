@@ -84,6 +84,7 @@ module.exports = {
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         '@nuxtjs/toast',
+        'nuxt-clipboard2',
         ['vuetify-dialog/nuxt', {
             property: '$dialog',
             actions: [

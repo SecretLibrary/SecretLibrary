@@ -2,7 +2,6 @@
     <v-hover v-slot:default="{ hover }">
         <v-card
             :elevation="hover ? 1 : 0"
-            outlined
             flat
             class="pa-4 mb-4"
             style="border-radius: 10px; transition: opacity 100ms;"
@@ -17,7 +16,7 @@
                     class="book-border"
                     @load="loaded"
                 />
-                <div>
+                <div style="width: 100%;">
                     <v-card-title style="word-break: keep-all;">
                         {{ title }}
                     </v-card-title>

@@ -1,6 +1,6 @@
 <template>
     <v-container fluid>
-        <v-card flat outlined max-width="600" class="ma-auto">
+        <v-card flat max-width="600" class="ma-auto">
             <v-card-title class="card-title">
                 로그인
             </v-card-title>
@@ -11,15 +11,21 @@
                             <v-col :key="`${index}-social-login-btn`" cols="12">
                                 <v-hover v-slot:default="{ hover }">
                                     <v-btn
+                                        class="font-weight-bold"
                                         block
-                                        large
-                                        :elevation="hover ? 4 : 1"
+                                        x-large
+                                        :elevation="hover ? 4 : 0"
                                         :color="item.color"
                                         :dark="item.dark"
                                         rounded
                                         :disabled="processing"
                                         @click="onClickSocialLogin(item)"
                                     >
+                                        <img
+                                            :src="images[item.provider]"
+                                            style="width: 32px;"
+                                            class="mr-4"
+                                        >
                                         {{ item.title }}
                                     </v-btn>
                                 </v-hover>
@@ -75,11 +81,16 @@
 </template>
 
 <script>
+import kakaoImage from '@/assets/images/2111683.png'
+
 export default {
     name: 'Login',
     auth: false,
     data () {
         return {
+            images: {
+                kakao: kakaoImage
+            },
             socialLoginBtnList: [
                 { provider: 'kakao', title: '카카오톡으로 시작하기', color: 'kakao', dark: false }
             ],

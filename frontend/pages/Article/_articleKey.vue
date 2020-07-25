@@ -74,6 +74,19 @@
                                 min-width="80"
                                 color="main"
                                 class="d-flex align-center px-4"
+                                @click="doCopy"
+                            >
+                                <v-icon>
+                                    mdi-content-copy
+                                </v-icon>
+                                복사
+                            </v-btn>
+
+                            <v-btn
+                                outlined
+                                min-width="80"
+                                color="main"
+                                class="d-flex align-center px-4"
                                 @click="doPressLikey"
                             >
                                 <v-icon v-if="isLikeyPressed">
@@ -117,7 +130,6 @@
             <v-card
                 v-show="bookCardLoaded && !loading"
                 flat
-                outlined
                 class="article-card"
             >
                 <template v-if="comments.length > 0">
@@ -259,6 +271,9 @@ export default {
             const articleItems = this.item.articleItems
             return articleItems.sort((a, b) => a.order < b.order ? -1 : a.order > b.order ? 1 : 0)
         },
+        book () {
+            return this.item.book
+        },
         currentUserId () {
             if (!this.$auth.loggedIn) {
                 return null
@@ -294,6 +309,22 @@ export default {
         goUserProfile () {
             const { userId } = this
             this.$router.push(`/user/${userId}`)
+        },
+        async doCopy () {
+            const { articleItems, book } = this
+            const { title } = book
+
+            let text = `${title}\n\n`
+
+            text += articleItems.map(({ question, text }, index) => `${index + 1}. ${question}\n${text}\n\n`).join('')
+
+            try {
+                await this.$copyText(text)
+                this.$toast.success('복사되었습니다!')
+            } catch (e) {
+                console.error(e)
+                this.$toast.global.error()
+            }
         },
         async doDeleteArticle () {
             const { isMine, articleKey } = this
