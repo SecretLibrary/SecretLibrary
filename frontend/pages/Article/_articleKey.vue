@@ -101,6 +101,12 @@
                             </v-btn>
                         </v-card-actions>
                     </v-fade-transition>
+
+                    <v-img
+                        v-if="item.imageUrl"
+                        :src="item.imageUrl"
+                        class="mt-4"
+                    />
                 </v-card>
                 <v-fade-transition>
                     <template v-show="!loading && imageLoaded">

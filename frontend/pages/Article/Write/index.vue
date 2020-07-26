@@ -141,12 +141,46 @@
                             outlined
                             :disabled="!isQuestionSelected"
                             style="transition: color 0.3s;"
+                            @click="goUploadImage"
+                        >
+                            다음
+                        </v-btn>
+                    </v-card-actions>
+                </section>
+            </section>
+            <section v-if="step === 3" class="bl">
+                <div class="bl-text mt-12 mb-6">
+                    마지막으로 나누고 싶은 사진이 있다면 공유해주세요!
+                    <v-file-input
+                        solo
+                        flat
+                        outlined
+                        show-size
+                        prepend-icon="mdi-camera"
+                        @change="onChangeImage"
+                    />
+                    <v-card-actions>
+                        <v-btn
+                            color="cancel"
+                            outlined
+                            style="transition: color 0.3s;"
+                            @click="goBack"
+                        >
+                            이전
+                        </v-btn>
+                        <v-spacer />
+                        <v-btn
+                            width="120"
+                            color="main"
+                            outlined
+                            :disabled="!isQuestionSelected"
+                            style="transition: color 0.3s;"
                             @click="onClickSubmit"
                         >
                             완료
                         </v-btn>
                     </v-card-actions>
-                </section>
+                </div>
             </section>
         </client-only>
     </v-container>
@@ -155,6 +189,7 @@
 <script>
 import BookInfoCard from '~/components/moracules/Books/BookInfoCard'
 import dbUtils from '~/utils/DbUtils'
+import { preprocessImage } from '~/utils/imageHandler'
 
 export default {
     name: 'Index',
@@ -167,6 +202,7 @@ export default {
     },
     data () {
         return {
+            loading: false,
             bookQuery: '',
             book: null,
             selectedQuestionIndex: [],
@@ -223,6 +259,18 @@ export default {
         ])
     },
     methods: {
+        goUrl (url) {
+            window.open(url, '_blank')
+        },
+        goUploadImage () {
+            if (!this.$refs.form.validate()) {
+                return this.$toast.info('질문은 4개 이상 입력 해 주세요.')
+            }
+            this.step += 1
+        },
+        goBack () {
+            this.step -= 1
+        },
         async searchBook () {
             const { step, bookQuery } = this
 
@@ -248,9 +296,6 @@ export default {
             await this.$nextTick()
 
             this.step = 1
-        },
-        goUrl (url) {
-            window.open(url, '_blank')
         },
         async goQnA () {
             const { selectedQuestionIndex, questions } = this
@@ -281,16 +326,9 @@ export default {
                 easing: 'easeInOutCubic'
             })
         },
-        goBack () {
-            this.step -= 1
-        },
         async onClickSubmit () {
             const { qnaList, image } = this
             let { user, book } = this
-
-            if (!this.$refs.form.validate()) {
-                return this.$toast.info('질문은 4개 이상 입력 해 주세요.')
-            }
 
             user = dbUtils.user(user)
             book = dbUtils.book(book)
@@ -300,13 +338,13 @@ export default {
             if (image) {
                 try {
                     const formData = new FormData()
-                    formData.append('img', image)
+                    formData.append('img', image, image.name)
                     const { data } = await this.$axios.post('/images', formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         }
                     })
-                    imageUrl = data
+                    imageUrl = data.result
                 } catch (e) {
                     this.$toast.error('이미지 업로드에 실패하였습니다.')
                 }
@@ -325,6 +363,21 @@ export default {
             } catch (e) {
                 console.error(e)
                 this.$toast.global.error()
+            }
+        },
+        async onChangeImage (file) {
+            if (!file) {
+                return
+            }
+
+            try {
+                this.loading = true
+                this.image = await preprocessImage(file)
+            } catch (e) {
+                console.error(e)
+                this.$toast.global.error()
+            } finally {
+                this.loading = false
             }
         }
     },

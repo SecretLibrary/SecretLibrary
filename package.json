@@ -18,6 +18,7 @@
     "dependencies": {
         "aws-sdk": "^2.649.0",
         "axios": "^0.19.2",
+        "compressorjs": "^1.0.6",
         "cors": "^2.8.5",
         "cross-env": "^5.2.0",
         "express": "^4.16.4",
