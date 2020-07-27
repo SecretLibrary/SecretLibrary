@@ -45,14 +45,13 @@
                 :https="false"
             />
             <v-file-input
-                v-model="file"
                 accept="image/*"
                 prepend-icon="mdi-camera"
                 color="main"
                 solo
                 flat
                 show-size
-                @change="onUpdateFile"
+                @change="onChangeImage"
             />
             <v-card-actions>
                 <v-spacer />
@@ -72,6 +71,8 @@
 
 <script>
 import UserAvatar from '~/components/moracules/UserAvatar'
+import { preprocessImage } from '~/utils/imageHandler'
+
 export default {
     name: 'Setting',
     components: { UserAvatar },
@@ -122,17 +123,13 @@ export default {
 
             try {
                 this.loading = true
-                this.image = await preprocessImage(file)
+                this.file = await preprocessImage(file)
+                this.profileImage = URL.createObjectURL(this.file)
             } catch (e) {
                 console.error(e)
                 this.$toast.global.error()
             } finally {
                 this.loading = false
-            }
-        },
-        onUpdateFile (file) {
-            if (file) {
-                this.profileImage = URL.createObjectURL(file)
             }
         },
         async doSubmit () {
@@ -143,7 +140,7 @@ export default {
             if (file) {
                 try {
                     const formData = new FormData()
-                    formData.append('img', file)
+                    formData.append('img', file, file.name)
                     const { data } = await this.$axios.post('/images', formData)
                     profileImage = data.result
                 } catch (e) {
