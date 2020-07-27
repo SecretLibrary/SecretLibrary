@@ -151,36 +151,36 @@
             <section v-if="step === 3" class="bl">
                 <div class="bl-text mt-12 mb-6">
                     마지막으로 나누고 싶은 사진이 있다면 공유해주세요!
-                    <v-file-input
-                        solo
-                        flat
-                        outlined
-                        show-size
-                        prepend-icon="mdi-camera"
-                        @change="onChangeImage"
-                    />
-                    <v-card-actions>
-                        <v-btn
-                            color="cancel"
-                            outlined
-                            style="transition: color 0.3s;"
-                            @click="goBack"
-                        >
-                            이전
-                        </v-btn>
-                        <v-spacer />
-                        <v-btn
-                            width="120"
-                            color="main"
-                            outlined
-                            :disabled="!isQuestionSelected"
-                            style="transition: color 0.3s;"
-                            @click="onClickSubmit"
-                        >
-                            완료
-                        </v-btn>
-                    </v-card-actions>
                 </div>
+                <v-file-input
+                    solo
+                    flat
+                    outlined
+                    show-size
+                    prepend-icon="mdi-camera"
+                    @change="onChangeImage"
+                />
+                <v-card-actions>
+                    <v-btn
+                        color="cancel"
+                        outlined
+                        style="transition: color 0.3s;"
+                        @click="goBack"
+                    >
+                        이전
+                    </v-btn>
+                    <v-spacer />
+                    <v-btn
+                        width="120"
+                        color="main"
+                        outlined
+                        :disabled="!isQuestionSelected"
+                        style="transition: color 0.3s;"
+                        @click="onClickSubmit"
+                    >
+                        완료
+                    </v-btn>
+                </v-card-actions>
             </section>
         </client-only>
     </v-container>

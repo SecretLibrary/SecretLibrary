@@ -115,6 +115,21 @@ export default {
         this.userId = user.userId
     },
     methods: {
+        async onChangeImage (file) {
+            if (!file) {
+                return
+            }
+
+            try {
+                this.loading = true
+                this.image = await preprocessImage(file)
+            } catch (e) {
+                console.error(e)
+                this.$toast.global.error()
+            } finally {
+                this.loading = false
+            }
+        },
         onUpdateFile (file) {
             if (file) {
                 this.profileImage = URL.createObjectURL(file)
