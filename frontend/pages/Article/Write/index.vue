@@ -155,9 +155,9 @@
                 <v-file-input
                     solo
                     flat
-                    outlined
                     show-size
                     prepend-icon="mdi-camera"
+                    color="main"
                     @change="onChangeImage"
                 />
                 <v-card-actions>
