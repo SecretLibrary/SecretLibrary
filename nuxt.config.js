@@ -77,6 +77,20 @@ module.exports = {
     dotenv: {
         systemvars: true
     },
+    pwa: {
+        meta: {
+            name: '비밀서재',
+            author: 'eggplantiny',
+            description: '비밀서재',
+            theme_color: 'white',
+            lang: 'kr',
+            nativeUI: true
+        },
+        manifest: {
+            name: '비밀서재',
+            lang: 'kr'
+        }
+    },
     /*
     ** Nuxt.js routes
     */
