@@ -92,3 +92,6 @@ sw.*
 # Key
 /server/keys/*
 /keys/*
+
+
+sw.*
