@@ -88,6 +88,7 @@ module.exports = {
         },
         manifest: {
             name: '비밀서재',
+            short_name: '비밀서재',
             lang: 'kr'
         }
     },

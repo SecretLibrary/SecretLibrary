@@ -40,6 +40,7 @@
                 사진
             </v-card-title>
             <user-avatar
+                class="ml-4"
                 :user="createdUser"
                 :size="150"
                 :https="false"

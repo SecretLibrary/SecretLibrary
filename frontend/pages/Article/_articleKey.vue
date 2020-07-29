@@ -277,6 +277,13 @@ export default {
             const articleItems = this.item.articleItems
             return articleItems.sort((a, b) => a.order < b.order ? -1 : a.order > b.order ? 1 : 0)
         },
+        authorInfo () {
+            const { item } = this
+            if (!item) {
+                return null
+            }
+            return item.userInfo
+        },
         book () {
             return this.item.book
         },
@@ -317,12 +324,18 @@ export default {
             this.$router.push(`/user/${userId}`)
         },
         async doCopy () {
-            const { articleItems, book } = this
-            const { title } = book
+            const { articleItems, book, authorInfo, articleKey } = this
+            const { title, authors } = book
+            const { userName } = authorInfo
 
-            let text = `${title}\n\n`
+            let text = `${title} - ${authors}\n\n${userName} 님이 쓰신 독후감\n\n`
+            const url = `https://www.secretlibrary.net/article/${articleKey}`
 
-            text += articleItems.map(({ question, text }, index) => `${index + 1}. ${question}\n${text}\n\n`).join('')
+            text += articleItems.map(
+                ({ question, text }, index) => `${index + 1}. ${question}\n${text}\n\n`
+            ).join('')
+
+            text += `출처 : ${url}`
 
             try {
                 await this.$copyText(text)
