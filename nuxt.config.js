@@ -89,7 +89,8 @@ module.exports = {
         manifest: {
             name: '비밀서재',
             short_name: '비밀서재',
-            lang: 'kr'
+            lang: 'kr',
+            theme_color: '#ffffff'
         }
     },
     /*
@@ -97,6 +98,8 @@ module.exports = {
     */
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
+        '@nuxtjs/onesignal',
+        '@nuxtjs/pwa',
         '@nuxtjs/axios',
         '@nuxtjs/auth',
         '@nuxtjs/toast',
@@ -185,6 +188,15 @@ module.exports = {
                     kakao: '#ffe812',
                     facebook: '#3b5998'
                 }
+            }
+        }
+    },
+    oneSignal: {
+        init: {
+            appId: '7b4a1bd5-edb4-494c-bf29-1b89bd276f0a',
+            allowLocalhostAsSecureOrigin: true,
+            welcomeNotification: {
+                disable: true
             }
         }
     },
