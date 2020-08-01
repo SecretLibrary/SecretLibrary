@@ -94,7 +94,7 @@ export default {
     },
     data () {
         return {
-            imageLoaded: false
+            imageLoaded: true
         }
     },
     methods: {

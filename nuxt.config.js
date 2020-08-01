@@ -191,15 +191,6 @@ module.exports = {
             }
         }
     },
-    oneSignal: {
-        init: {
-            appId: '7b4a1bd5-edb4-494c-bf29-1b89bd276f0a',
-            allowLocalhostAsSecureOrigin: true,
-            welcomeNotification: {
-                disable: true
-            }
-        }
-    },
     /*
     ** Build configuration
     */
