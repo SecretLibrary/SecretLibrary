@@ -54,6 +54,8 @@
 <script>
 import BookInfoCard from '~/components/moracules/Books/BookInfoCard'
 import UserAvatar from '~/components/moracules/UserAvatar'
+import { sortByCreatedAt } from '~/utils/Object'
+
 export default {
     name: 'UserId',
     components: { UserAvatar, BookInfoCard },
@@ -65,7 +67,7 @@ export default {
 
         try {
             const res = await $axios.get(`/articles/userId/${userId}`)
-            result.items = res.data.result
+            result.items = sortByCreatedAt(res.data.result, false)
         } catch (e) {
             console.error(e)
             $toast.error()

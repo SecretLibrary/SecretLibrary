@@ -49,7 +49,9 @@
                             xl="4"
                             class="px-2 pb-4"
                         >
-                            <postscript-card :article="article" />
+                            <postscript-card
+                                :article="article"
+                            />
                         </v-col>
                     </template>
                 </v-row>
@@ -99,7 +101,8 @@ export default {
             toolbar: {
                 query: '',
                 focus: false
-            }
+            },
+            loaded: false
         }
     },
     watch: {

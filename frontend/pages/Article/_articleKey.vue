@@ -28,7 +28,6 @@
                     :thumbnail="item.book.thumbnail"
                     :datetime="item.book.datetime"
                     @click="goUrl(item.book.url)"
-                    @load="bookCardLoaded = true"
                 />
                 <v-card
                     flat
@@ -134,7 +133,7 @@
             </v-card>
             <!-- 댓글 카드 -->
             <v-card
-                v-show="bookCardLoaded && !loading"
+                v-show="!loading"
                 flat
                 class="article-card"
             >
@@ -268,8 +267,7 @@ export default {
             comments: [],
             likeys: [],
             likey: 0,
-            loading: true,
-            bookCardLoaded: false
+            loading: true
         }
     },
     computed: {

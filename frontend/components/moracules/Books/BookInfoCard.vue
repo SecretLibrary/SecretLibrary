@@ -1,37 +1,42 @@
 <template>
     <v-hover v-slot:default="{ hover }">
         <v-card
-            :elevation="hover ? 1 : 0"
             flat
-            class="pa-4 mb-4"
-            style="border-radius: 10px; transition: opacity 100ms;"
+            class="mb-4"
             :ripple="false"
-            :style="imageLoaded ? 'opacity: 1;' : 'opacity: 0;'"
+            :class="{ hover }"
             @click="$emit('click')"
         >
-            <div class="d-flex">
-                <v-img
-                    :src="thumbnail"
-                    max-width="100"
-                    class="book-border"
-                    @load="loaded"
-                />
-                <div style="width: 100%;">
-                    <v-card-title style="word-break: keep-all;">
-                        {{ title }}
-                    </v-card-title>
-                    <dl class="book-info-detail">
-                        <dt>저자</dt>
-                        <dd>{{ authors | authors }}</dd>
-                        <dt>출판사</dt>
-                        <dd>{{ publisher }}</dd>
-                        <template v-if="datetime">
-                            <dt>발간일</dt>
-                            <dd>{{ datetime | datetime }}</dd>
-                        </template>
-                    </dl>
-                </div>
-            </div>
+            <v-row dense>
+                <v-col cols="3" class="d-flex justify-center">
+                    <v-img
+                        :src="thumbnail"
+                        max-width="120"
+                        width="100%"
+                        aspect-ratio="0.66"
+                        class="book-border"
+                    />
+                </v-col>
+                <v-col cols="9" align-self="center">
+                    <div class="d-flex justify-left align-center">
+                        <div style="width: 100%;">
+                            <v-card-title class="py-0" style="word-break: keep-all;">
+                                {{ title }}
+                            </v-card-title>
+                            <dl class="book-info-detail">
+                                <dt>저자</dt>
+                                <dd>{{ authors | authors }}</dd>
+                                <dt>출판사</dt>
+                                <dd>{{ publisher }}</dd>
+                                <template v-if="datetime">
+                                    <dt>발간일</dt>
+                                    <dd>{{ datetime | datetime }}</dd>
+                                </template>
+                            </dl>
+                        </div>
+                    </div>
+                </v-col>
+            </v-row>
         </v-card>
     </v-hover>
 </template>
@@ -72,21 +77,10 @@ export default {
             default: null
         }
     },
-    data () {
-        return {
-            imageLoaded: false
-        }
-    },
     computed: {
         imgUrl () {
             const { thumbnail } = this
             return string.httpToHttps(thumbnail)
-        }
-    },
-    methods: {
-        loaded () {
-            this.imageLoaded = true
-            this.$emit('load', true)
         }
     }
 }
@@ -112,5 +106,9 @@ export default {
             margin-inline-start: 40px;
             width: 100%;
         }
+    }
+
+    .hover {
+        outline: #1e1e1e solid 2px;
     }
 </style>

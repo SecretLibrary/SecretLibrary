@@ -3,11 +3,9 @@
         <v-card
             flat
             class="pa-2 ma-auto"
-            :outlined="!hover"
-            :elevation="hover ? 4 : 0"
+            outlined
             :ripple="false"
-            style="transition: opacity 300ms;"
-            :style="imageLoaded ? 'opacity: 1;' : 'opacity: 0;'"
+            :class="{ hover }"
             @click="goArticle(article)"
         >
             <v-card-title class="text-h5 justify-center font-weight-bold">
@@ -19,10 +17,9 @@
                     <v-col cols="12" sm="4" class="d-flex align-center">
                         <v-img
                             :src="article.book.thumbnail"
-                            max-width="140"
-                            contain
+                            max-width="180"
+                            aspect-ratio="0.66"
                             class="ma-auto ma-sm-0 book-border"
-                            @load="imageLoaded = true"
                         />
                     </v-col>
                     <v-col cols="12" sm="8">
@@ -94,7 +91,6 @@ export default {
     },
     data () {
         return {
-            imageLoaded: true
         }
     },
     methods: {
@@ -106,5 +102,7 @@ export default {
 </script>
 
 <style scoped>
-
+.hover {
+    outline: #1e1e1e solid 2px;
+}
 </style>
