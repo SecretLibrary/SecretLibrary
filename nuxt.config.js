@@ -98,7 +98,6 @@ module.exports = {
     */
     modules: [
         // Doc: https://axios.nuxtjs.org/usage
-        '@nuxtjs/onesignal',
         '@nuxtjs/pwa',
         '@nuxtjs/axios',
         '@nuxtjs/auth',
