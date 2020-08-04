@@ -98,18 +98,20 @@ async function addItem (userInfo, book, articleItems, userId, meetingKey = null,
     }
 }
 
-async function getItems (LastEvaluatedKey  = null, Limit = 20) {
+async function getItems (LastEvaluatedKey = null, Limit = 3) {
     const params = {
         TableName,
-        Limit,
-        LastEvaluatedKey
+        Limit
     }
 
-    const { Items } = await documentClient.scan(params).promise()
-    return Items
+    if (LastEvaluatedKey) {
+        params.LastEvaluatedKey = LastEvaluatedKey
+    }
+
+    return await documentClient.scan(params).promise()
 }
 
-async function getItemsByUserId (userId, LastEvaluatedKey  = null, Limit = 20) {
+async function getItemsByUserId (userId, LastEvaluatedKey = null, Limit = 20) {
     const params = {
         TableName,
         LastEvaluatedKey,

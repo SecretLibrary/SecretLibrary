@@ -34,7 +34,7 @@ router.get('/:itemKey', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-    const { lastKey, limit } = req.params
+    const { lastKey, limit } = req.query
 
     try {
         const items = await articles.getItems(lastKey, limit)

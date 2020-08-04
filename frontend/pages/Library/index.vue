@@ -87,8 +87,8 @@ export default {
         }
 
         try {
-            const res = await $axios('/articles')
-            const articles = res.data.result
+            const res = await $axios('/articles?lastKey=f57b2899')
+            const articles = res.data.result.Items
             result.articles = sortByCreatedAt(articles, false)
         } catch (e) {
             error(e)
