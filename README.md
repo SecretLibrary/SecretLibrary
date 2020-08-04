@@ -1,4 +1,4 @@
-# SecretLIbrary
+# SecretLibrary
 
 > https://www.secretlibrary.net
 
