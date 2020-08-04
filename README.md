@@ -2,11 +2,9 @@
 
 > https://www.secretlibrary.net
 
->> Frontend : Nuxt, Vue, Vuex, Vuetify, ...etc
-
->> Backend : Node.js, AWS DynamoDB, AWS S3, AWS EC2
-
->> Managing : AWS Beanstalk, Cloud Watch, Route53, Elastic Load Balancer
+- Frontend : Nuxt, Vue, Vuex, Vuetify, ...etc
+- Backend : Node.js, AWS DynamoDB, AWS S3, AWS EC2
+- Managing : AWS Beanstalk, Cloud Watch, Route53, Elastic Load Balancer
 
 ## Build Setup
 
