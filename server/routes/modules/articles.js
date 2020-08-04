@@ -9,7 +9,7 @@ router.get('/userId/:userId', async (req, res) => {
     const { userId } = req.params
 
     try {
-        const items = await articles.getItems(userId)
+        const items = await articles.getItemsByUserId(userId)
         response.success(res, items)
     } catch (e) {
         console.error(e)
@@ -34,8 +34,10 @@ router.get('/:itemKey', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
+    const { lastKey, limit } = req.params
+
     try {
-        const items = await articles.getItems()
+        const items = await articles.getItems(lastKey, limit)
         response.success(res, items)
     } catch (e) {
         console.error(e)

@@ -98,27 +98,32 @@ async function addItem (userInfo, book, articleItems, userId, meetingKey = null,
     }
 }
 
-async function getItems (userId = null) {
-    if (userId) {
-        const params = {
-            TableName,
-            IndexName: 'userIdIndex',
-            KeyConditionExpression: 'userId = :v_userId',
-            ExpressionAttributeValues: {
-                ':v_userId': userId
-            },
-            ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, articleItems, userId, meetingKey',
-            ScanIndexForward: false
-        }
-
-        const { Items } = await documentClient.query(params).promise()
-        return Items
-    }
-
+async function getItems (LastEvaluatedKey  = null, Limit = 20) {
     const params = {
-        TableName
+        TableName,
+        Limit,
+        LastEvaluatedKey
     }
+
     const { Items } = await documentClient.scan(params).promise()
+    return Items
+}
+
+async function getItemsByUserId (userId, LastEvaluatedKey  = null, Limit = 20) {
+    const params = {
+        TableName,
+        LastEvaluatedKey,
+        Limit,
+        IndexName: 'userIdIndex',
+        KeyConditionExpression: 'userId = :v_userId',
+        ExpressionAttributeValues: {
+            ':v_userId': userId
+        },
+        ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, articleItems, userId, meetingKey',
+        ScanIndexForward: false
+    }
+
+    const { Items } = await documentClient.query(params).promise()
     return Items
 }
 
@@ -185,6 +190,7 @@ async function updateLikey (itemKey, likey) {
 module.exports = {
     createTable,
     getItems,
+    getItemsByUserId,
     getItem,
     addItem,
     deleteItem,
