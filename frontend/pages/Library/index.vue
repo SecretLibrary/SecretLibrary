@@ -76,26 +76,11 @@
 </template>
 
 <script>
-import { sortByCreatedAt } from '~/utils/Object'
 import PostscriptCard from '~/components/moracules/Library/PostscriptCard'
 
 export default {
     name: 'Library',
     components: { PostscriptCard },
-    async asyncData ({ $axios, error }) {
-        const result = {
-        }
-
-        try {
-            const res = await $axios('/articles?lastKey=f57b2899')
-            const articles = res.data.result.Items
-            result.articles = sortByCreatedAt(articles, false)
-        } catch (e) {
-            error(e)
-        }
-
-        return result
-    },
     data () {
         return {
             toolbar: {
@@ -105,6 +90,11 @@ export default {
             loaded: false
         }
     },
+    computed: {
+        articles () {
+            return this.$store.getters['articles/items']
+        }
+    },
     watch: {
         async 'toolbar.focus' (value) {
             await this.$nextTick()
@@ -112,6 +102,9 @@ export default {
                 this.$refs.query.focus()
             }
         }
+    },
+    async beforeMount () {
+        await this.$store.dispatch('articles/fetch')
     }
 }
 </script>

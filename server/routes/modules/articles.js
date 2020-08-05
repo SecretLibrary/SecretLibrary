@@ -34,10 +34,10 @@ router.get('/:itemKey', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-    const { lastKey, limit } = req.query
+    const { lastEvaluatedKey, limit } = req.query
 
     try {
-        const items = await articles.getItems(lastKey, limit)
+        const items = await articles.getItems(lastEvaluatedKey, limit)
         response.success(res, items)
     } catch (e) {
         console.error(e)

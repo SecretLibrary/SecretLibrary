@@ -36,6 +36,7 @@
         "passport-kakao": "^1.0.0",
         "path": "^0.12.7",
         "uuid": "^7.0.3",
+        "vue-infinite-loading": "^2.4.5",
         "vue-kakao-login": "^1.0.5",
         "vue-typer": "^1.2.0",
         "vue2-google-maps": "^0.10.7"

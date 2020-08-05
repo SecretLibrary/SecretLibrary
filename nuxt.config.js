@@ -57,7 +57,8 @@ module.exports = {
     ** Plugins to load before mounting the App
     */
     plugins: [
-        '~plugins/googleMap.js'
+        '~plugins/googleMap.js',
+        { src: '~/plugins/VueInfiniteScroll.js', mode: 'client' }
     ],
     /*
     ** Nuxt.js dev-routes
