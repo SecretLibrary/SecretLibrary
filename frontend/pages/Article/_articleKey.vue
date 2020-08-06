@@ -38,66 +38,73 @@
                             v-show="!loading"
                             class="py-0"
                         >
-                            <v-spacer />
-
-                            <v-btn
-                                v-if="isMine"
-                                outlined
-                                min-width="80"
-                                class="px-4"
-                                color="red"
-                                @click="doDeleteArticle"
-                            >
-                                <v-icon>
-                                    mdi-delete-outline
-                                </v-icon>
-                                삭제
-                            </v-btn>
-
-                            <v-btn
-                                v-if="isMine"
-                                outlined
-                                min-width="80"
-                                class="px-4"
-                                color="red"
-                                @click="doEditArticle"
-                            >
-                                <v-icon>
-                                    mdi-pencil-outline
-                                </v-icon>
-                                수정
-                            </v-btn>
-
-                            <v-btn
-                                outlined
-                                min-width="80"
-                                color="main"
-                                class="d-flex align-center px-4"
-                                @click="doCopy"
-                            >
-                                <v-icon>
-                                    mdi-content-copy
-                                </v-icon>
-                                복사
-                            </v-btn>
-
-                            <v-btn
-                                outlined
-                                min-width="80"
-                                color="main"
-                                class="d-flex align-center px-4"
-                                @click="doPressLikey"
-                            >
-                                <v-icon v-if="isLikeyPressed">
-                                    mdi-heart
-                                </v-icon>
-                                <v-icon v-else>
-                                    mdi-heart-outline
-                                </v-icon>
-                                <span class="ml-2">
-                                    {{ likey }}
-                                </span>
-                            </v-btn>
+                            <v-row dense>
+                                <v-col cols="6" sm="3">
+                                    <v-btn
+                                        v-if="isMine"
+                                        outlined
+                                        min-width="80"
+                                        color="red"
+                                        width="100%"
+                                        @click="doDeleteArticle"
+                                    >
+                                        <v-icon>
+                                            mdi-delete-outline
+                                        </v-icon>
+                                        삭제
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="6" sm="3">
+                                    <v-btn
+                                        v-if="isMine"
+                                        outlined
+                                        min-width="80"
+                                        color="red"
+                                        width="100%"
+                                        @click="doEditArticle"
+                                    >
+                                        <v-icon>
+                                            mdi-pencil-outline
+                                        </v-icon>
+                                        수정
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="6" sm="3">
+                                    <v-btn
+                                        outlined
+                                        min-width="80"
+                                        color="main"
+                                        width="100%"
+                                        class="d-flex align-center"
+                                        @click="doCopy"
+                                    >
+                                        <v-icon>
+                                            mdi-content-copy
+                                        </v-icon>
+                                        복사
+                                    </v-btn>
+                                </v-col>
+                                <v-col cols="6" sm="3">
+                                    <v-btn
+                                        outlined
+                                        min-width="80"
+                                        color="main"
+                                        class="d-flex align-center"
+                                        width="100%"
+                                        @click="doPressLikey"
+                                    >
+                                        <v-icon v-if="isLikeyPressed">
+                                            mdi-heart
+                                        </v-icon>
+                                        <v-icon v-else>
+                                            mdi-heart-outline
+                                        </v-icon>
+                                        <span class="ml-2">
+                                            {{ likey }}
+                                        </span>
+                                    </v-btn>
+                                </v-col>
+                            </v-row>
                         </v-card-actions>
                     </v-fade-transition>
 
@@ -308,8 +315,10 @@ export default {
         this.loading = true
         this.likey = this.item.likey
 
-        await this.fetchComment()
-        await this.fetchLikey()
+        await Promise.all([
+            this.fetchLikey(),
+            this.fetchComment()
+        ])
 
         this.loading = false
     },
@@ -352,7 +361,7 @@ export default {
 
             const confirm = await this.$dialog.confirm({
                 text: '정말 삭제하시겠어요?',
-                title: '삭제하기'
+                title: '알림'
             })
 
             if (confirm !== true) {
