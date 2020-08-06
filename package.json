@@ -1,7 +1,7 @@
 {
     "name": "secret-library",
     "title": "비밀서재",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Reading Party Platform App",
     "author": "Eggplantiny",
     "private": true,
