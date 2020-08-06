@@ -95,6 +95,9 @@ export default {
     computed: {
         articles () {
             return this.$store.getters['articles/items']
+        },
+        firstTouch () {
+            return this.$store.getters['articles/firstTouch']
         }
     },
     watch: {
@@ -106,7 +109,9 @@ export default {
         }
     },
     async beforeMount () {
-        await this.$store.dispatch('articles/fetch')
+        if (this.firstTouch) {
+            await this.$store.dispatch('articles/fetch')
+        }
     },
     methods: {
         async doFetchMoreArticles ($state) {

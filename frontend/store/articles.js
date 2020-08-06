@@ -56,5 +56,6 @@ export const actions = {
 }
 
 export const getters = {
-    items: state => state.items
+    items: state => state.items,
+    firstTouch: state => state.firstTouch
 }
