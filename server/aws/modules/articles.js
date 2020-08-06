@@ -98,14 +98,16 @@ async function addItem (userInfo, book, articleItems, userId, meetingKey = null,
     }
 }
 
-async function getItems (LastEvaluatedKey = null, Limit = 3) {
+async function getItems (itemKey = null, Limit = 5) {
     const params = {
         TableName,
         Limit
     }
 
-    if (LastEvaluatedKey) {
-        params.LastEvaluatedKey = LastEvaluatedKey
+    if (itemKey) {
+        params.ExclusiveStartKey = {
+            itemKey
+        }
     }
 
     return await documentClient.scan(params).promise()

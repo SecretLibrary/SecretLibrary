@@ -29,10 +29,24 @@ export const actions = {
     async fetch ({ commit, state }) {
         try {
             const { lastEvaluatedKey } = state
-            const res = await this.$axios.get(`/articles?lastEvaluatedKey=${lastEvaluatedKey}`)
+
+            let url = '/articles'
+
+            if (lastEvaluatedKey) {
+                const { itemKey } = lastEvaluatedKey
+                url = `${url}?itemKey=${itemKey}`
+            }
+
+            const res = await this.$axios.get(url)
             const { LastEvaluatedKey, Items } = res.data.result
             commit('add', Items)
-            commit('update', { key: 'lastEvaluatedKey', value: LastEvaluatedKey })
+
+            if (LastEvaluatedKey) {
+                commit('update', { key: 'lastEvaluatedKey', value: LastEvaluatedKey })
+            }
+
+            res.more = !!LastEvaluatedKey
+
             return res
         } catch (e) {
             console.error(e)

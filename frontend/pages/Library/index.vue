@@ -56,20 +56,22 @@
                     </template>
                 </v-row>
             </v-col>
-            <v-col
-                v-if="false"
-                cols="12"
-                md="2"
-            >
-                <v-card
-                    outlined
-                    flat
-                    class="px-2"
+            <v-col cols="12">
+                <infinite-loading
+                    spinner="spiral"
+                    @infinite="doFetchMoreArticles"
                 >
-                    <v-card-title>
-                        Hello World
-                    </v-card-title>
-                </v-card>
+                    <div slot="no-more">
+                        더 많은 후기를 준비하도록 하겠습니다 🙆‍♂
+                    </div>
+                    <div slot="no-results">
+                        더 많은 후기를 준비하도록 하겠습니다 🙆‍♂
+                    </div>
+                    <div slot="error" slot-scope="{ trigger }">
+                        에러가 발생했습니.
+                        <a href="javascript:;" @click="trigger">여기</a> 를 눌러서 다시 시작하기
+                    </div>
+                </infinite-loading>
             </v-col>
         </v-row>
     </v-container>
@@ -105,6 +107,15 @@ export default {
     },
     async beforeMount () {
         await this.$store.dispatch('articles/fetch')
+    },
+    methods: {
+        async doFetchMoreArticles ($state) {
+            const { more } = await this.$store.dispatch('articles/fetch')
+            if (more) {
+                return $state.loaded()
+            }
+            $state.complete()
+        }
     }
 }
 </script>
