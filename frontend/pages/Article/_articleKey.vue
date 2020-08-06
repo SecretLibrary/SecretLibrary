@@ -308,8 +308,10 @@ export default {
         this.loading = true
         this.likey = this.item.likey
 
-        await this.fetchComment()
-        await this.fetchLikey()
+        await Promise.all([
+            this.fetchLikey(),
+            this.fetchComment()
+        ])
 
         this.loading = false
     },
@@ -352,7 +354,7 @@ export default {
 
             const confirm = await this.$dialog.confirm({
                 text: '정말 삭제하시겠어요?',
-                title: '삭제하기'
+                title: '알림'
             })
 
             if (confirm !== true) {
