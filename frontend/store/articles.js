@@ -27,8 +27,16 @@ export const actions = {
         commit('init')
     },
     async fetch ({ commit, state }) {
+        const { lastEvaluatedKey, firstTouch } = state
+
+        if (!firstTouch && !lastEvaluatedKey) {
+            return {
+                more: false
+            }
+        }
+
         try {
-            const { lastEvaluatedKey } = state
+            console.log('fucking fetched!', lastEvaluatedKey)
 
             let url = '/articles'
 
@@ -41,9 +49,9 @@ export const actions = {
             const { LastEvaluatedKey, Items } = res.data.result
             commit('add', Items)
 
-            if (LastEvaluatedKey) {
-                commit('update', { key: 'lastEvaluatedKey', value: LastEvaluatedKey })
-            }
+            const key = 'lastEvaluatedKey'
+            const value = LastEvaluatedKey || null
+            commit('update', { key, value })
 
             res.more = !!LastEvaluatedKey
 
