@@ -2,7 +2,7 @@
     <v-hover v-slot:default="{ hover }">
         <v-card
             flat
-            class="pa-2 ma-auto"
+            class="pa-2 ma-auto border"
             outlined
             :ripple="false"
             :class="{ hover }"
