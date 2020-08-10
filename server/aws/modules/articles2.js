@@ -66,8 +66,8 @@ async function createTable () {
     }
 }
 
-async function addItem (userInfo, book, articleItems, userId, meetingKey = null, imageUrl = null) {
-    const createdAt = gen.generateISOString()
+async function addItem (userInfo, book, articleItems, userId, meetingKey = null, imageUrl = null, createdAt = null) {
+    createdAt = createdAt || gen.generateISOString()
     const itemKey = gen.generateKey(8)
     const commentSize = 0
     const likey = 0
@@ -101,5 +101,6 @@ async function addItem (userInfo, book, articleItems, userId, meetingKey = null,
 }
 
 module.exports = {
-    createTable
+    createTable,
+    addItem
 }
