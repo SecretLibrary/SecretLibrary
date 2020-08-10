@@ -102,7 +102,9 @@ export default {
 </script>
 
 <style scoped>
+
 .hover {
     outline: #1e1e1e solid 2px;
 }
+
 </style>

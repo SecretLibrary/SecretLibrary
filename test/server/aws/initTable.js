@@ -1,7 +1,5 @@
 const dotenv = require('dotenv')
 dotenv.config({ path: '../../../.env' })
-console.log(process.env.AWS_SDK_LOAD_CONFIG)
-
 const tables = require('../../../server/aws/modules').tables;
 
 (async () => {

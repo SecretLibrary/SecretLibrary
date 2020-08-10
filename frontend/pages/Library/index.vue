@@ -37,7 +37,7 @@
                         />
                     </v-toolbar>
                 </v-col>
-                <v-col cols="12" md="12">
+                <v-col cols="12" md="12" class="py-0">
                     <v-row no-gutters>
                         <template
                             v-for="(article, articleIndex) in articles"
@@ -57,9 +57,9 @@
                         </template>
                     </v-row>
                 </v-col>
-                <v-col cols="12">
+                <v-col cols="12" class="py-0 pb-2">
                     <infinite-loading
-                        spinner="spiral"
+                        spinner="waveDot"
                         @infinite="doFetchMoreArticles"
                     >
                         <div slot="no-more">

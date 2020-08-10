@@ -5,6 +5,7 @@
  */
 
 const articles = require('./articles')
+const articles2 = require('./articles2')
 const meetings = require('./meetings')
 const user = require('./user')
 const places = require('./places')
@@ -16,6 +17,7 @@ const attendee = require('./attendee')
 module.exports = {
     tables: {
         articles,
+        articles2,
         user,
         meetings,
         places,
