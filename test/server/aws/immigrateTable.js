@@ -21,9 +21,9 @@ async function immigrateTable (srcTable, destTable) {
 }
 
 (async () => {
-    const { Items } = await tables.articles2.getItems(null, 30)
-    // await immigrateTable(tables.articles, tables.articles2)
-    Items.forEach(({ createdAt, itemKey }) => {
-        console.log(createdAt, itemKey)
-    })
+    await immigrateTable(tables.articles, tables.articles2)
+    // const { Items } = await tables.articles2.getItems(null, 30)
+    // Items.forEach(({ createdAt, itemKey }) => {
+    //     console.log(createdAt, itemKey)
+    // })
 })()

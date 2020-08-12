@@ -1,7 +1,7 @@
 const gen = require('../../utils/gen')
 const { documentClient, ddb } = require('../sdk')
 
-const TableName = 'reading-party-articles'
+const TableName = 'reading-party-articles-2'
 
 async function createTable () {
     const params = {
@@ -64,8 +64,8 @@ async function createTable () {
     }
 }
 
-async function addItem (userInfo, book, articleItems, userId, meetingKey = null, imageUrl = null) {
-    const createdAt = gen.generateISOString()
+async function addItem (userInfo, book, articleItems, userId, meetingKey = null, imageUrl = null, createdAt = null) {
+    createdAt = createdAt || gen.generateISOString()
     const itemKey = gen.generateKey(8)
     const dateKey = gen.generateDateKey(createdAt)
     const commentSize = 0

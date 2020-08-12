@@ -5,6 +5,10 @@ function generateKey (length = 36) {
     return uuid.v4().split('-').join('').slice(0, length)
 }
 
+function generateDateKey (date) {
+    return moment(date).format('YYYY-MM')
+}
+
 function generateISOString (time = new Date()) {
     return moment(time).toISOString()
 }
@@ -25,5 +29,6 @@ function generateRangeDate (targetDate = undefined, amount = 1, unit = 'month') 
 module.exports = {
     generateKey,
     generateISOString,
-    generateRangeDate
+    generateRangeDate,
+    generateDateKey
 }
