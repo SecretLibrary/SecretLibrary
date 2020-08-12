@@ -210,6 +210,41 @@ async function updateLikey (itemKey, likey) {
     return await documentClient.update(params).promise()
 }
 
+async function updateTable () {
+    const params = {
+        TableName,
+        AttributeDefinitions: [
+            { AttributeName: 'dateKey', AttributeType: 'S' },
+            { AttributeName: 'createdAt', AttributeType: 'S' }
+        ],
+        GlobalSecondaryIndexUpdates: [{
+            Create: {
+                IndexName: 'dateKeyIndex',
+                KeySchema: [
+                    {
+                        AttributeName: 'dateKey',
+                        KeyType: 'HASH'
+                    },
+                    {
+                        AttributeName: 'createdAt',
+                        KeyType: 'RANGE'
+                    }
+                ],
+                Projection: {
+                    ProjectionType: 'INCLUDE',
+                    NonKeyAttributes: ['userInfo', 'book', 'createdAt', 'likey', 'imageUrl', 'articleItems', 'userId', 'meetingKey']
+                },
+                ProvisionedThroughput: {
+                    ReadCapacityUnits: 1,
+                    WriteCapacityUnits: 1
+                }
+            }
+        }]
+    }
+
+    return await ddb.updateTable(params).promise()
+}
+
 module.exports = {
     createTable,
     getItems,
@@ -219,5 +254,6 @@ module.exports = {
     deleteItem,
     updateItem,
     updateLikey,
-    updateDateKey
+    updateDateKey,
+    updateTable
 }
