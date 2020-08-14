@@ -11,6 +11,7 @@ async function createTable () {
         ],
         AttributeDefinitions: [
             { AttributeName: 'itemKey', AttributeType: 'S' },
+            { AttributeName: 'dateKey', AttributeType: 'S' }
             { AttributeName: 'userId', AttributeType: 'S' },
             { AttributeName: 'meetingKey', AttributeType: 'S' }
         ],
@@ -37,6 +38,23 @@ async function createTable () {
                 KeySchema: [
                     {
                         AttributeName: 'meetingKey',
+                        KeyType: 'HASH'
+                    }
+                ],
+                Projection: {
+                    ProjectionType: 'INCLUDE',
+                    NonKeyAttributes: ['userInfo', 'book', 'createdAt', 'likey', 'imageUrl', 'articleItems', 'userId', 'meetingKey']
+                },
+                ProvisionedThroughput: {
+                    ReadCapacityUnits: 1,
+                    WriteCapacityUnits: 1
+                }
+            },
+            {
+                IndexName: 'dateKeyIndex',
+                KeySchema: [
+                    {
+                        AttributeName: 'dateKey',
                         KeyType: 'HASH'
                     }
                 ],
