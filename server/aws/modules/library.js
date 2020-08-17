@@ -82,6 +82,140 @@ async function createTable () {
     }
 }
 
+async function addItem (userInfo, book, questions, userId, meetingKey = null, imageUrl = null) {
+    const createdAt = gen.generateISOString()
+    const itemKey = gen.generateKey(8)
+    const dateKey = gen.generateDateKey(createdAt)
+    const commentSize = 0
+    const likey = 0
+
+    if (!meetingKey) {
+        meetingKey = 'NO-MEETING'
+    }
+
+    const params = {
+        TableName,
+        Item: {
+            itemKey,
+            dateKey,
+            createdAt,
+            commentSize,
+            book,
+            userInfo,
+            imageUrl,
+            questions,
+            userId,
+            meetingKey,
+            likey
+        }
+    }
+    try {
+        await documentClient.put(params).promise()
+        return itemKey
+    } catch (e) {
+        console.error('Unable to add item to table. Error JSON:', JSON.stringify(e, null, 2))
+        throw e
+    }
+}
+
+async function getItems (itemKey = null, Limit = 5) {
+    const params = {
+        TableName,
+        Limit
+    }
+
+    if (itemKey) {
+        params.ExclusiveStartKey = {
+            itemKey
+        }
+    }
+
+    return await documentClient.scan(params).promise()
+}
+
+async function getItemsByUserId (userId, LastEvaluatedKey = null, Limit = 20) {
+    const params = {
+        TableName,
+        LastEvaluatedKey,
+        Limit,
+        IndexName: 'userIdIndex',
+        KeyConditionExpression: 'userId = :v_userId',
+        ExpressionAttributeValues: {
+            ':v_userId': userId
+        },
+        ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, questions, userId, meetingKey',
+        ScanIndexForward: false
+    }
+
+    return await documentClient.query(params).promise()
+}
+
+async function getItem (itemKey) {
+    const params = {
+        TableName,
+        Key: {
+            itemKey
+        },
+        ProjectionExpression: 'userInfo, itemKey, book, createdAt, likey, imageUrl, questions, userId, meetingKey'
+    }
+
+    const { Item } = await documentClient.get(params).promise()
+    return Item
+}
+
+async function updateItem (itemKey, userInfo, questions, imageUrl, book, meetingKey, userId) {
+    const params = {
+        TableName,
+        Key: {
+            itemKey
+        },
+        UpdateExpression: 'set userInfo = :user, userId = :userId, questions = :questions, imageUrl = :imageUrl, book = :book, meetingKey = :meetingKey',
+        ExpressionAttributeValues: {
+            ':userId': userId,
+            ':user': userInfo,
+            ':questions': questions,
+            ':imageUrl': imageUrl,
+            ':book': book,
+            ':meetingKey': meetingKey
+        },
+        ReturnValues: 'UPDATED_NEW'
+    }
+
+    return await documentClient.update(params).promise()
+}
+
+async function deleteItem (itemKey) {
+    const params = {
+        TableName,
+        Key: {
+            itemKey
+        },
+        ConditionExpression: 'attribute_exists(itemKey)'
+    }
+    return await documentClient.delete(params).promise()
+}
+
+async function updateLikey (itemKey, likey) {
+    const params = {
+        TableName,
+        Key: {
+            itemKey
+        },
+        UpdateExpression: 'set likey = :likey',
+        ExpressionAttributeValues: {
+            ':likey': likey,
+        },
+        ReturnValues: 'UPDATED_NEW'
+    }
+    return await documentClient.update(params).promise()
+}
+
 export default {
-    createTable
+    createTable,
+    addItem,
+    getItems,
+    getItemsByUserId,
+    updateItem,
+    deleteItem,
+    updateLikey
 }
