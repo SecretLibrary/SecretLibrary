@@ -11,7 +11,7 @@ async function createTable () {
         ],
         AttributeDefinitions: [
             { AttributeName: 'itemKey', AttributeType: 'S' },
-            { AttributeName: 'dateKey', AttributeType: 'S' }
+            { AttributeName: 'dateKey', AttributeType: 'S' },
             { AttributeName: 'userId', AttributeType: 'S' },
             { AttributeName: 'meetingKey', AttributeType: 'S' }
         ],

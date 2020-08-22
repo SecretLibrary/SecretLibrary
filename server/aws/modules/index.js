@@ -12,12 +12,14 @@ const questions = require('./questions')
 const likey = require('./likey')
 const comments = require('./comments')
 const attendee = require('./attendee')
-const articles2 = require('./articles2')
+const library = require('./library')
+// const articles2 = require('./articles2')
 
 module.exports = {
     tables: {
         articles,
-        articles2,
+        // articles2,
+        library,
         user,
         meetings,
         places,
