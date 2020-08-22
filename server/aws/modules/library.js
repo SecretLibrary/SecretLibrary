@@ -203,18 +203,19 @@ async function updateLikey (itemKey, likey) {
         },
         UpdateExpression: 'set likey = :likey',
         ExpressionAttributeValues: {
-            ':likey': likey,
+            ':likey': likey
         },
         ReturnValues: 'UPDATED_NEW'
     }
     return await documentClient.update(params).promise()
 }
 
-export default {
+module.exports = {
     createTable,
     addItem,
     getItems,
     getItemsByUserId,
+    getItem,
     updateItem,
     deleteItem,
     updateLikey
