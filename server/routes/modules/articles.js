@@ -1,6 +1,7 @@
 const express = require('express')
 const { isCompleteAuthenticated } = require('../../middlewares/auth')
 const articles = require('../../aws/modules/articles')
+const library = require('../../aws/modules/library')
 
 const response = require('../utils/response')
 const router = express.Router()
@@ -54,8 +55,11 @@ router.post('/', [isCompleteAuthenticated], async (req, res) => {
         userName
     }
 
+    const questions = items.map(item => item.question)
+
     try {
         const articleId = await articles.addItem(user, book, items, userId, meetingKey, imageUrl)
+        await library.addItem(user, book, questions, userId, meetingKey, imageUrl)
         response.success(res, articleId)
     } catch (e) {
         response.failed(res, e)

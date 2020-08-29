@@ -4,7 +4,6 @@ const tables = require('../../../server/aws/modules').tables
 
 async function immigrateTable (srcTable, destTable) {
     let res = await srcTable.getItems(null, 100)
-    console.log(res)
 
     const promises = res.Items.map(({
         userInfo,
@@ -14,14 +13,17 @@ async function immigrateTable (srcTable, destTable) {
         meetingKey,
         imageUrl,
         createdAt
-    }) => destTable.addItem(userInfo, book, articleItems, userId, meetingKey, imageUrl, createdAt))
+    }) => {
+        const questions = articleItems.map(item => item.question)
+        destTable.addItem(userInfo, book, questions, userId, meetingKey, imageUrl, createdAt)
+    })
 
     res = await Promise.all(promises)
     console.log(res)
 }
 
 (async () => {
-    await immigrateTable(tables.articles, tables.articles2)
+    await immigrateTable(tables.articles, tables.library)
     // const { Items } = await tables.articles2.getItems(null, 30)
     // Items.forEach(({ createdAt, itemKey }) => {
     //     console.log(createdAt, itemKey)
