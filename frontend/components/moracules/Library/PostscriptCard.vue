@@ -3,7 +3,6 @@
         <v-card
             flat
             class="pa-2 ma-auto border"
-            outlined
             :ripple="false"
             :class="{ hover }"
             @click="goArticle(article)"
