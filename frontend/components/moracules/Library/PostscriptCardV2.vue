@@ -8,7 +8,7 @@
             :class="{ hover }"
             @click="goArticle(article)"
         >
-            <v-card-title class="text-h5 justify-center font-weight-bold">
+            <v-card-title class="text-h5 justify-center font-weight-bold px-2">
                 {{ article.book.title }}
             </v-card-title>
             <v-divider />
@@ -24,18 +24,15 @@
                     </v-col>
                     <v-col cols="12" sm="8">
                         <v-list max-height="220" style="overflow-y: hidden;">
-                            <template v-for="(item, index) in article.articleItems.slice(0, 3)">
+                            <template v-for="(question, index) in article.questions.slice(0, 4)">
                                 <v-list-item
                                     :key="`${index}-question`"
                                     class="px-0 px-sm-2"
                                 >
                                     <v-list-item-content>
                                         <v-list-item-title>
-                                            {{ item.question }}
+                                            {{ question }}
                                         </v-list-item-title>
-                                        <v-list-item-subtitle>
-                                            {{ item.text }}
-                                        </v-list-item-subtitle>
                                     </v-list-item-content>
                                 </v-list-item>
                             </template>
@@ -49,7 +46,9 @@
                                     {{ article.likey }}
                                 </v-btn>
                             </div>
-                            ...와 {{ article.articleItems.length - 3 }}개의 질문
+                            <template v-if="article.questions.length > 4">
+                                ...와 {{ article.questions.length - 4 }}개의 질문
+                            </template>
                         </div>
                     </v-col>
                 </v-row>
