@@ -23,6 +23,23 @@
                     </v-row>
                 </v-col>
                 <!-- loader 자리 -->
+                <v-col cols="12" class="py-0 pb-2">
+                    <infinite-loading
+                        spinner="waveDot"
+                        @infinite="doFetchMoreArticles"
+                    >
+                        <div slot="no-more">
+                            더 많은 후기를 준비하도록 하겠습니다 🙆‍♂
+                        </div>
+                        <div slot="no-results">
+                            더 많은 후기를 준비하도록 하겠습니다 🙆‍♂
+                        </div>
+                        <div slot="error" slot-scope="{ trigger }">
+                            에러가 발생했습니.
+                            <a href="" @click="trigger">여기</a> 를 눌러서 다시 시작하기
+                        </div>
+                    </infinite-loading>
+                </v-col>
             </v-row>
         </v-container>
     </client-only>
@@ -44,6 +61,15 @@ export default {
     async beforeMount () {
         await this.$store.dispatch('library/init')
         await this.$store.dispatch('library/fetch')
+    },
+    methods: {
+        async doFetchMoreArticles ($state) {
+            const { more } = await this.$store.dispatch('library/fetch')
+            if (more) {
+                return $state.loaded()
+            }
+            $state.complete()
+        }
     }
 }
 </script>

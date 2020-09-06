@@ -70,7 +70,7 @@
                         </div>
                         <div slot="error" slot-scope="{ trigger }">
                             에러가 발생했습니.
-                            <a href="javascript:;" @click="trigger">여기</a> 를 눌러서 다시 시작하기
+                            <a href="" @click="trigger">여기</a> 를 눌러서 다시 시작하기
                         </div>
                     </infinite-loading>
                 </v-col>

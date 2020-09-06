@@ -22,21 +22,14 @@
                             class="ma-auto ma-sm-0 book-border"
                         />
                     </v-col>
-                    <v-col cols="12" sm="8">
-                        <v-list max-height="220" style="overflow-y: hidden;">
+                    <v-col cols="12" sm="8" class="d-flex flex-column justify-space-between">
+                        <ol class="questions">
                             <template v-for="(question, index) in article.questions.slice(0, 4)">
-                                <v-list-item
-                                    :key="`${index}-question`"
-                                    class="px-0 px-sm-2"
-                                >
-                                    <v-list-item-content>
-                                        <v-list-item-title>
-                                            {{ question }}
-                                        </v-list-item-title>
-                                    </v-list-item-content>
-                                </v-list-item>
+                                <li :key="index" class="question">
+                                    {{ question }}
+                                </li>
                             </template>
-                        </v-list>
+                        </ol>
                         <div class="d-flex justify-space-between align-center">
                             <div>
                                 <v-btn color="main" aria-readonly="true" icon>
@@ -75,7 +68,7 @@ import moment from 'moment'
 import UserAvatar from '~/components/moracules/UserAvatar'
 
 export default {
-    name: 'PostscriptCard',
+    name: 'PostscriptCardV2',
     components: { UserAvatar },
     filters: {
         createdAt (value) {
@@ -100,10 +93,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .hover {
     outline: #1e1e1e solid 2px;
+}
+
+.questions {
+
+    margin-bottom: 12px;
+
+    .question {
+        font-size: 1.20em;
+        color: #3e3e3e;
+        line-height: 1.66;
+        margin-bottom: 8px;
+    }
 }
 
 </style>
