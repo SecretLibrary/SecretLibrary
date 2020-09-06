@@ -82,12 +82,10 @@ async function createTable () {
     }
 }
 
-async function addItem (userInfo, book, questions, userId, meetingKey = null, imageUrl = null, createdAt = null) {
+async function addItem (userInfo, book, questions, userId, meetingKey = null, imageUrl = null, createdAt = null, itemKey = null, comments = 0, likey = 0) {
     createdAt = createdAt || gen.generateISOString()
-    const itemKey = gen.generateKey(8)
+    itemKey = itemKey || gen.generateKey(8)
     const dateKey = gen.generateDateKey(createdAt)
-    const comments = 0
-    const likey = 0
 
     if (!meetingKey) {
         meetingKey = 'NO-MEETING'

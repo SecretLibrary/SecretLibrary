@@ -8,7 +8,7 @@
             :class="{ hover }"
             @click="goArticle(article)"
         >
-            <v-card-title class="text-h5 justify-center font-weight-bold">
+            <v-card-title class="text-h5 justify-center font-weight-bold px-2">
                 {{ article.book.title }}
             </v-card-title>
             <v-divider />
@@ -22,24 +22,14 @@
                             class="ma-auto ma-sm-0 book-border"
                         />
                     </v-col>
-                    <v-col cols="12" sm="8">
-                        <v-list max-height="220" style="overflow-y: hidden;">
-                            <template v-for="(item, index) in article.articleItems.slice(0, 3)">
-                                <v-list-item
-                                    :key="`${index}-question`"
-                                    class="px-0 px-sm-2"
-                                >
-                                    <v-list-item-content>
-                                        <v-list-item-title>
-                                            {{ item.question }}
-                                        </v-list-item-title>
-                                        <v-list-item-subtitle>
-                                            {{ item.text }}
-                                        </v-list-item-subtitle>
-                                    </v-list-item-content>
-                                </v-list-item>
+                    <v-col cols="12" sm="8" class="d-flex flex-column justify-space-between">
+                        <ol class="questions">
+                            <template v-for="(question, index) in article.questions.slice(0, 4)">
+                                <li :key="index" class="question">
+                                    {{ question }}
+                                </li>
                             </template>
-                        </v-list>
+                        </ol>
                         <div class="d-flex justify-space-between align-center">
                             <div>
                                 <v-btn color="main" aria-readonly="true" icon>
@@ -49,7 +39,9 @@
                                     {{ article.likey }}
                                 </v-btn>
                             </div>
-                            ...와 {{ article.articleItems.length - 3 }}개의 질문
+                            <template v-if="article.questions.length > 4">
+                                ...와 {{ article.questions.length - 4 }}개의 질문
+                            </template>
                         </div>
                     </v-col>
                 </v-row>
@@ -76,7 +68,7 @@ import moment from 'moment'
 import UserAvatar from '~/components/moracules/UserAvatar'
 
 export default {
-    name: 'PostscriptCard',
+    name: 'PostscriptCardV2',
     components: { UserAvatar },
     filters: {
         createdAt (value) {
@@ -101,10 +93,22 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
 
 .hover {
     outline: #1e1e1e solid 2px;
+}
+
+.questions {
+
+    margin-bottom: 12px;
+
+    .question {
+        font-size: 1.20em;
+        color: #3e3e3e;
+        line-height: 1.66;
+        margin-bottom: 8px;
+    }
 }
 
 </style>

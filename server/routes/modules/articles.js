@@ -59,7 +59,7 @@ router.post('/', [isCompleteAuthenticated], async (req, res) => {
 
     try {
         const articleId = await articles.addItem(user, book, items, userId, meetingKey, imageUrl)
-        await library.addItem(user, book, questions, userId, meetingKey, imageUrl)
+        await library.addItem(user, book, questions, userId, meetingKey, imageUrl, articleId)
         response.success(res, articleId)
     } catch (e) {
         response.failed(res, e)
