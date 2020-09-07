@@ -4,6 +4,7 @@ const { isCompleteAuthenticated } = require('../../middlewares/auth')
 const { paramCheck } = require('../utils/params')
 const likey = require('../../aws/modules/likey')
 const articles = require('../../aws/modules/articles')
+const library = require('../../aws/modules/library')
 
 const response = require('../utils/response')
 const router = express.Router()
@@ -49,13 +50,20 @@ router.post('/article/:articleKey', [isCompleteAuthenticated], async (req, res) 
 
         if (targetLikey) {
             const { itemKey } = targetLikey
+
+            const value = items.length + 1
+
             await likey.deleteItem(itemKey)
-            await articles.updateLikey(articleKey, items.length - 1)
+            await articles.updateLikey(articleKey, value)
+            await library.updateLikey(articleKey, value)
             return response.success(res, -1)
         }
 
+        const value = items.length + 1
+
         await likey.addItem(userId, articleKey, userInfo)
-        await articles.updateLikey(articleKey, items.length + 1)
+        await articles.updateLikey(articleKey, value)
+        await library.updateLikey(articleKey, value)
         return response.success(res, 1)
     } catch (e) {
         console.error(e)

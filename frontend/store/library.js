@@ -2,7 +2,8 @@ import { sortByCreatedAt } from '~/utils/Object'
 
 export const state = () => ({
     items: [],
-    lastEvaluatedKey: null
+    lastEvaluatedKey: null,
+    firstTouch: true
 })
 
 export const mutations = {
@@ -11,8 +12,12 @@ export const mutations = {
         state.lastEvaluatedKey = null
     },
     add (state, items) {
-        items = sortByCreatedAt(items, false)
+        if (state.firstTouch) {
+            state.firstTouch = false
+        }
+
         state.items.push(...items)
+        state.items = sortByCreatedAt(state.items, false)
     },
     update (state, { key, value }) {
         state[key] = value
@@ -24,7 +29,18 @@ export const actions = {
         commit('init')
     },
     async fetch ({ commit, state }) {
-        const { lastEvaluatedKey } = state
+        const { lastEvaluatedKey, firstTouch } = state
+        if (lastEvaluatedKey) {
+            console.log('lastEvaluatedKey', lastEvaluatedKey.itemKey, 'firstTouch', firstTouch)
+        } else {
+            console.log('lastEvaluatedKey : null', 'firstTouch', firstTouch)
+        }
+
+        if (!firstTouch && !lastEvaluatedKey) {
+            return {
+                more: false
+            }
+        }
 
         try {
             let url = '/library'
