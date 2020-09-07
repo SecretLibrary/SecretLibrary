@@ -59,7 +59,7 @@ export default {
         }
     },
     async beforeMount () {
-        await this.$store.dispatch('library/init')
+        // await this.$store.dispatch('library/init')
         await this.$store.dispatch('library/fetch')
     },
     methods: {

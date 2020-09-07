@@ -12,7 +12,7 @@
                     모임
                 </v-btn>
             </nuxt-link>
-            <nuxt-link to="/Library">
+            <nuxt-link to="/Library2">
                 <v-btn text nuxt color="main" class="btn">
                     서재
                 </v-btn>
