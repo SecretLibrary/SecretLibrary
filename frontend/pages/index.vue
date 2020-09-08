@@ -6,7 +6,7 @@
                 <p>교류하고 소통하고자 합니다.</p>
             </div>
         </v-img>
-        <v-container>
+        <v-container v-if="false">
             <div class="info-inner pa-8 text-center">
                 <p>
                     비밀서재는 <span>{{ startString }}</span>부터 <span>{{ dayCount }}</span>일 동안
