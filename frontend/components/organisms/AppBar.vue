@@ -12,7 +12,7 @@
                     모임
                 </v-btn>
             </nuxt-link>
-            <nuxt-link to="/Library2">
+            <nuxt-link to="/Library">
                 <v-btn text nuxt color="main" class="btn">
                     서재
                 </v-btn>
@@ -122,7 +122,7 @@ export default {
             this.$router.push('/Write_UNUSED/Test')
         },
         onClickLibrary () {
-            this.$router.push('/Library')
+            this.$router.push('/Library_old')
         },
         onClickTitle () {
             if (this.$router.currentRoute.fullPath !== '/') {

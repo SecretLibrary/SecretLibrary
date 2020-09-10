@@ -3,7 +3,8 @@ import { sortByCreatedAt } from '~/utils/Object'
 export const state = () => ({
     items: [],
     lastEvaluatedKey: null,
-    firstTouch: true
+    firstTouch: true,
+    itemSet: new Set()
 })
 
 export const mutations = {
@@ -16,7 +17,15 @@ export const mutations = {
             state.firstTouch = false
         }
 
-        state.items.push(...items)
+        const keys = items.map(item => item.itemKey)
+        keys.forEach(key => state.itemSet.add(key))
+        items.forEach((item) => {
+            const key = item.key
+            if (!state.itemSet.has(key)) {
+                state.items.push(item)
+            }
+        })
+        // state.items.push(...items)
         state.items = sortByCreatedAt(state.items, false)
     },
     update (state, { key, value }) {
@@ -30,11 +39,11 @@ export const actions = {
     },
     async fetch ({ commit, state }) {
         const { lastEvaluatedKey, firstTouch } = state
-        if (lastEvaluatedKey) {
-            console.log('lastEvaluatedKey', lastEvaluatedKey.itemKey, 'firstTouch', firstTouch)
-        } else {
-            console.log('lastEvaluatedKey : null', 'firstTouch', firstTouch)
-        }
+        // if (lastEvaluatedKey) {
+        //     console.log('lastEvaluatedKey', lastEvaluatedKey.itemKey, 'firstTouch', firstTouch)
+        // } else {
+        //     console.log('lastEvaluatedKey : null', 'firstTouch', firstTouch)
+        // }
 
         if (!firstTouch && !lastEvaluatedKey) {
             return {

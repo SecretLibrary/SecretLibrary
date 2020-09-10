@@ -51,7 +51,7 @@ router.post('/article/:articleKey', [isCompleteAuthenticated], async (req, res) 
         if (targetLikey) {
             const { itemKey } = targetLikey
 
-            const value = items.length + 1
+            const value = items.length - 1
 
             await likey.deleteItem(itemKey)
             await articles.updateLikey(articleKey, value)

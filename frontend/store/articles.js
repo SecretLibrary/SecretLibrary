@@ -36,8 +36,6 @@ export const actions = {
         }
 
         try {
-            console.log('fucking fetched!', lastEvaluatedKey)
-
             let url = '/articles'
 
             if (lastEvaluatedKey) {
