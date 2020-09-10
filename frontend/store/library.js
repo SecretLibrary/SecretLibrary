@@ -12,21 +12,21 @@ export const mutations = {
         state.items.splice(0, state.items.length)
         state.lastEvaluatedKey = null
     },
-    add (state, items) {
-        if (state.firstTouch) {
+    add (state, targetItems) {
+        const { items, firstTouch, itemSet } = state
+        if (firstTouch) {
             state.firstTouch = false
         }
 
-        const keys = items.map(item => item.itemKey)
-        keys.forEach(key => state.itemSet.add(key))
-        items.forEach((item) => {
-            const key = item.key
-            if (!state.itemSet.has(key)) {
-                state.items.push(item)
+        targetItems.forEach((item) => {
+            const key = item.itemKey
+            if (itemSet.has(key) === false) {
+                items.push(item)
+                itemSet.add(key)
             }
         })
-        // state.items.push(...items)
-        state.items = sortByCreatedAt(state.items, false)
+
+        state.items = sortByCreatedAt(items, false)
     },
     update (state, { key, value }) {
         state[key] = value
