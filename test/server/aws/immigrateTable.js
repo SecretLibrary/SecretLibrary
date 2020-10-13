@@ -17,7 +17,7 @@ async function immigrateTable (srcTable, destTable) {
         itemKey
     }) => {
         const questions = articleItems.map(item => item.question)
-        destTable.addItem(userInfo, book, questions, userId, meetingKey, imageUrl, createdAt, itemKey)
+        destTable.addItem(userInfo, book, questions, userId, meetingKey, imageUrl, itemKey, createdAt)
     })
 
     res = await Promise.all(promises)

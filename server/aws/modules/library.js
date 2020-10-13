@@ -82,7 +82,7 @@ async function createTable () {
     }
 }
 
-async function addItem (userInfo, book, questions, userId, meetingKey = null, imageUrl = null, createdAt = null, itemKey = null, comments = 0, likey = 0) {
+async function addItem (userInfo, book, questions, userId, meetingKey = null, imageUrl = null, itemKey = null, createdAt = null, comments = 0, likey = 0) {
     createdAt = createdAt || gen.generateISOString()
     itemKey = itemKey || gen.generateKey(8)
     const dateKey = gen.generateDateKey(createdAt)

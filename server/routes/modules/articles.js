@@ -59,6 +59,7 @@ router.post('/', [isCompleteAuthenticated], async (req, res) => {
 
     try {
         const articleId = await articles.addItem(user, book, items, userId, meetingKey, imageUrl)
+        //  userInfo, book, questions, userId, meetingKey, imageUrl, itemKey, createdAt, comments, likey
         await library.addItem(user, book, questions, userId, meetingKey, imageUrl, articleId)
         response.success(res, articleId)
     } catch (e) {
