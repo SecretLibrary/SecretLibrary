@@ -41,7 +41,7 @@
                             <v-row dense>
                                 <v-col cols="6" sm="3">
                                     <v-btn
-                                        v-if="isMine"
+                                        v-if="isMine && isLoggedIn"
                                         outlined
                                         min-width="80"
                                         color="red"
@@ -56,7 +56,7 @@
                                 </v-col>
                                 <v-col cols="6" sm="3">
                                     <v-btn
-                                        v-if="isMine"
+                                        v-if="isMine && isLoggedIn"
                                         outlined
                                         min-width="80"
                                         color="red"
@@ -91,6 +91,7 @@
                                         color="main"
                                         class="d-flex align-center"
                                         width="100%"
+                                        :disabled="!isLoggedIn"
                                         @click="doPressLikey"
                                     >
                                         <v-icon v-if="isLikeyPressed">
@@ -144,90 +145,97 @@
                 flat
                 class="article-card"
             >
-                <template v-if="comments.length > 0">
-                    <v-list>
-                        <v-list-item
-                            v-for="(item, index) in comments"
-                            :key="index"
-                        >
-                            <v-list-item-avatar>
-                                <user-avatar
-                                    :user="item.userInfo"
-                                />
-                            </v-list-item-avatar>
-                            <v-list-item-content class="comment">
-                                <h4>
-                                    {{ item.userInfo.userName }}
-                                </h4>
-                                <div class="comment-text">
-                                    {{ item.comment }}
-                                </div>
-                                <p>
-                                    {{ item.createdAt | createdAt }}
-                                </p>
-                            </v-list-item-content>
-                            <v-list-item-action
-                                v-if="item.userId === currentUserId"
+                <template v-if="isLoggedIn">
+                    <template v-if="comments.length > 0">
+                        <v-list>
+                            <v-list-item
+                                v-for="(item, index) in comments"
+                                :key="index"
                             >
-                                <v-menu offset-x nudge-width="80">
-                                    <template v-slot:activator="{ on }">
-                                        <v-btn
-                                            icon
-                                            color="main"
-                                            large
-                                            class="mr-2"
-                                            v-on="on"
-                                        >
-                                            <v-icon>
-                                                mdi-dots-horizontal
-                                            </v-icon>
-                                        </v-btn>
-                                    </template>
-                                    <v-list class="py-0">
-                                        <v-list-item
-                                            color="red lighten-1"
-                                            @click="doDeleteComment(item)"
-                                        >
-                                            <v-list-item-content>
-                                                삭제
-                                            </v-list-item-content>
-                                        </v-list-item>
-                                    </v-list>
-                                </v-menu>
-                            </v-list-item-action>
-                        </v-list-item>
-                    </v-list>
+                                <v-list-item-avatar>
+                                    <user-avatar
+                                        :user="item.userInfo"
+                                    />
+                                </v-list-item-avatar>
+                                <v-list-item-content class="comment">
+                                    <h4>
+                                        {{ item.userInfo.userName }}
+                                    </h4>
+                                    <div class="comment-text">
+                                        {{ item.comment }}
+                                    </div>
+                                    <p>
+                                        {{ item.createdAt | createdAt }}
+                                    </p>
+                                </v-list-item-content>
+                                <v-list-item-action
+                                    v-if="item.userId === currentUserId"
+                                >
+                                    <v-menu offset-x nudge-width="80">
+                                        <template v-slot:activator="{ on }">
+                                            <v-btn
+                                                icon
+                                                color="main"
+                                                large
+                                                class="mr-2"
+                                                v-on="on"
+                                            >
+                                                <v-icon>
+                                                    mdi-dots-horizontal
+                                                </v-icon>
+                                            </v-btn>
+                                        </template>
+                                        <v-list class="py-0">
+                                            <v-list-item
+                                                color="red lighten-1"
+                                                @click="doDeleteComment(item)"
+                                            >
+                                                <v-list-item-content>
+                                                    삭제
+                                                </v-list-item-content>
+                                            </v-list-item>
+                                        </v-list>
+                                    </v-menu>
+                                </v-list-item-action>
+                            </v-list-item>
+                        </v-list>
+                    </template>
+                    <template v-else>
+                        <v-card-subtitle class="text-center">
+                            첫번째 댓글을 작성 해 주세요 🙂
+                        </v-card-subtitle>
+                    </template>
+                    <v-card-actions>
+                        <v-text-field
+                            v-model="comment"
+                            color="main"
+                            rows="1"
+                            solo
+                            dense
+                            flat
+                            outlined
+                            hide-details
+                            class="mr-4"
+                        />
+                        <v-btn
+                            icon
+                            large
+                            color="main"
+                            class="mr-4"
+                            :disabled="comment.length === 0"
+                            @click="doPostComment"
+                        >
+                            <v-icon>
+                                mdi-comment-processing-outline
+                            </v-icon>
+                        </v-btn>
+                    </v-card-actions>
                 </template>
                 <template v-else>
                     <v-card-subtitle class="text-center">
-                        첫번째 댓글을 작성 해 주세요 🙂
+                        로그인을 하시면 댓글을 달 수 있어요! 🙂
                     </v-card-subtitle>
                 </template>
-                <v-card-actions>
-                    <v-text-field
-                        v-model="comment"
-                        color="main"
-                        rows="1"
-                        solo
-                        dense
-                        flat
-                        outlined
-                        hide-details
-                        class="mr-4"
-                    />
-                    <v-btn
-                        icon
-                        large
-                        color="main"
-                        class="mr-4"
-                        :disabled="comment.length === 0"
-                        @click="doPostComment"
-                    >
-                        <v-icon>
-                            mdi-comment-processing-outline
-                        </v-icon>
-                    </v-btn>
-                </v-card-actions>
             </v-card>
         </template>
     </v-container>
@@ -241,7 +249,8 @@ import { sortByCreatedAt } from '~/utils/Object'
 
 export default {
     name: 'UserArticle',
-    middleware: ['registered'],
+    auth: false,
+    // middleware: ['registered'],
     components: { UserAvatar, BookInfoCard },
     filters: {
         authors (value) {
@@ -306,9 +315,17 @@ export default {
             return this.item.userInfo.userId
         },
         isLikeyPressed () {
-            const { likeys } = this
+            const { likeys, isLoggedIn } = this
+
+            if (!isLoggedIn) {
+                return false
+            }
+
             const user = this.$auth.user
             return likeys.some(item => item.userId === user.userId)
+        },
+        isLoggedIn () {
+            return this.$auth.loggedIn
         }
     },
     async mounted () {

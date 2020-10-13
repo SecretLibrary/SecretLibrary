@@ -84,6 +84,7 @@ import PostscriptCard from '~/components/moracules/Library/PostscriptCard'
 
 export default {
     name: 'Library',
+    auth: false,
     components: { PostscriptCard },
     data () {
         return {

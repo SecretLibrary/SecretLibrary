@@ -50,6 +50,7 @@ import PostscriptCardV2 from '@/components/moracules/Library/PostscriptCardV2'
 
 export default {
     name: 'Library',
+    auth: false,
     components: {
         PostscriptCardV2
     },

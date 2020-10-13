@@ -7,7 +7,7 @@ const comments = require('../../aws/modules/comments')
 const response = require('../utils/response')
 const router = express.Router()
 
-router.get('/article/:articleKey', [isCompleteAuthenticated], async (req, res) => {
+router.get('/article/:articleKey', [], async (req, res) => {
     const { articleKey } = req.params
 
     try {
@@ -18,7 +18,6 @@ router.get('/article/:articleKey', [isCompleteAuthenticated], async (req, res) =
         response.failed(res, e)
     }
 })
-
 
 router.post('/article/:articleKey', [isCompleteAuthenticated], async (req, res) => {
     const { articleKey } = req.params
