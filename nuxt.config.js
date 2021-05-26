@@ -118,7 +118,7 @@ module.exports = {
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
-        baseURL: 'localhost:3000',
+        baseURL: 'localhost:3000:/api',
         proxy: {
             '/api': { target: 'http://localhost:3000/api', pathRewrite: { '^/api': '' } }
         },
