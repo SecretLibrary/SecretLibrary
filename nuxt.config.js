@@ -119,9 +119,9 @@ module.exports = {
     */
     axios: {
         baseURL: 'localhost:3000',
-        proxy: [
-            '/api': { target: 'http://localhost:3000/api', pathRewrite: { '^/api': '' } }    
-        ],
+        proxy: {
+            '/api': { target: 'http://localhost:3000/api', pathRewrite: { '^/api': '' } }
+        },
         credentials: true
     },
     /*
