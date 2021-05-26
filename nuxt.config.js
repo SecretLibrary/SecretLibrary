@@ -119,8 +119,7 @@ module.exports = {
     */
     axios: {
         baseURL: process.env.API_BASE_URL,
-        proxyHeaders: false,
-        proxy: true,
+//         proxyHeaders: false,
         credentials: true
     },
     /*
