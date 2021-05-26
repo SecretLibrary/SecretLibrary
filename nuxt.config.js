@@ -121,7 +121,7 @@ module.exports = {
         baseURL: 'localhost:3000',
         proxy: [
             '/api': { target: 'http://localhost:3000/api', pathRewrite: { '^/api': '' } }    
-        ]
+        ],
         credentials: true
     },
     /*
