@@ -119,8 +119,7 @@ module.exports = {
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
-        baseURL: process.env.NODE_ENV === 'production' ? 'https://www.secretlibrary.net' : 'http://localhost:3000',
-        prefix: '/api',
+        baseURL: process.env.NODE_ENV === 'production' ? 'https://www.secretlibrary.net/api' : 'http://localhost:3000/api',
         proxyHeaders: false,
         credentials: true
     },
