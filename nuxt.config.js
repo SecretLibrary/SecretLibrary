@@ -1,8 +1,6 @@
 require('dotenv').config()
 
 module.exports = {
-    mode: 'universal',
-    target: 'server',
     /*
     ** Headers of the page
     */
@@ -121,6 +119,7 @@ module.exports = {
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
+        baseURL: process.env.NODE_ENV === 'production' ? 'https://www.secretlibrary.net' : 'http://localhost:3000',
         prefix: '/api',
         proxyHeaders: false,
         credentials: true
