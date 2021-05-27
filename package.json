@@ -6,11 +6,10 @@
     "author": "Eggplantiny",
     "private": true,
     "scripts": {
-        "dev": "cross-env NODE_ENV=development nodemon server/app.js --watch server",
-        "serve": "cross-env NODE_ENV=development nodemon server/app.js --watch server",
+        "serve": "nuxt",
         "build": "nuxt build",
         "prestart": "nuxt build",
-        "start": "cross-env NODE_ENV=production node server/app.js",
+        "start": "cross-env NODE_ENV=production node server-middleware/app.js",
         "generate": "nuxt generate",
         "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
         "test": "jest"

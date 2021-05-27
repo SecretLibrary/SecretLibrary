@@ -15,11 +15,13 @@ export default {
         await this.$nextTick()
         const user = this.$auth.user
 
+        console.log('fucking', user)
+
         if (user.registered) {
-            return await this.$router.push('/')
+            return this.$router.push('/')
         }
 
-        await this.$router.push('/Register')
+        return this.$router.push('/Register')
     }
 }
 </script>

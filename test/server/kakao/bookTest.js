@@ -5,7 +5,7 @@ console.log(process.env.AWS_SDK_LOAD_CONFIG)
 
 // const axios = require('axios')
 // const key = require('./key')
-const books = require('../../../server/aws/modules/books');
+const books = require('../../../server-middleware/aws/modules/books');
 
 // const title = '미움받을 용기';
 

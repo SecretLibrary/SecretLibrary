@@ -17,20 +17,20 @@ const likey = require('./modules/likey')
 const library = require('./modules/library')
 
 module.exports = [
-    { path: 'images', router: images },
-    { path: 'auth', router: auth },
-    { path: 'meetings', router: meetings },
-    { path: 'hello', router: hello },
-    { path: 'members', router: members },
-    { path: 'ping', router: ping },
-    { path: 'places', router: places },
-    { path: 'category', router: category },
-    { path: 'questions', router: questions },
-    { path: 'books', router: books },
-    { path: 'articles', router: articles },
-    { path: 'user', router: user },
-    { path: 'social', router: social },
-    { path: 'comments', router: comments },
-    { path: 'likey', router: likey },
-    { path: 'library', router: library }
+    { path: '/images', router: images },
+    { path: '/auth', router: auth },
+    { path: '/meetings', router: meetings },
+    { path: '/hello', router: hello },
+    { path: '/members', router: members },
+    { path: '/ping', router: ping },
+    { path: '/places', router: places },
+    { path: '/category', router: category },
+    { path: '/questions', router: questions },
+    { path: '/books', router: books },
+    { path: '/articles', router: articles },
+    { path: '/user', router: user },
+    { path: '/social', router: social },
+    { path: '/comments', router: comments },
+    { path: '/likey', router: likey },
+    { path: '/library', router: library }
 ]

@@ -2,7 +2,7 @@ require('dotenv').config()
 
 module.exports = {
     mode: 'universal',
-    srcDir: 'frontend/',
+    target: 'server',
     /*
     ** Headers of the page
     */
@@ -58,7 +58,10 @@ module.exports = {
     */
     plugins: [
         '~plugins/googleMap.js',
-        { src: '~/plugins/VueInfiniteScroll.js', mode: 'client' }
+        {
+            src: '~/plugins/VueInfiniteScroll.js',
+            mode: 'client'
+        }
     ],
     /*
     ** Nuxt.js dev-routes
@@ -118,12 +121,13 @@ module.exports = {
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
-        baseURL: 'localhost:3000:/api',
-        proxy: {
-            '/api': { target: 'http://localhost:3000/api', pathRewrite: { '^/api': '' } }
-        },
+        prefix: '/api',
+        proxyHeaders: false,
         credentials: true
     },
+    serverMiddleware: [
+        { path: '/api', handler: '~/server-middleware/app.js' }
+    ],
     /*
     ** Toast Modules
     */

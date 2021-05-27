@@ -1,6 +1,6 @@
 const dotenv = require('dotenv')
 dotenv.config({ path: '../../../.env' })
-const tables = require('../../../server/aws/modules').tables
+const tables = require('../../../server-middleware/aws/modules').tables
 
 async function immigrateTable (srcTable, destTable) {
     let res = await srcTable.getItems(null, 100)

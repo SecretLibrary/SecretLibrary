@@ -1,4 +1,4 @@
 
-const gen = require('../../../server/utils/gen')
+const gen = require('../../../server-middleware/utils/gen')
 
 console.log(gen.generateISOString())
