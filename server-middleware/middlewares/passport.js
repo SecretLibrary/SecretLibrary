@@ -7,15 +7,16 @@ const KakaoStrategy = require('passport-kakao').Strategy
 const axios = require('axios')
 const userHandler = require('../aws/modules/user')
 
-const kakaoClientID = process.env.KAKAO_CLIENT_ID
+// const kakaoClientID = process.env.KAKAO_REST_KEY
+const kakaoRestApiKey = process.env.KAKAO_REST_KEY
 const kakaoCallbackURL = process.env.KAKAO_CALLBACK_URL
 
 passport.serializeUser((user, done) => {
-    // console.log('serialize', user)
+    console.log('serialize', user)
     return done(null, user)
 })
 passport.deserializeUser((user, done) => {
-    // console.log('desirialize', user)
+    console.log('desirialize', user)
     return done(null, user)
 })
 
@@ -53,7 +54,7 @@ passport.use(new BearerStrategy(
 ))
 
 passport.use(new KakaoStrategy({
-    clientID: kakaoClientID,
+    clientID: kakaoRestApiKey,
     callbackURL: kakaoCallbackURL
 }, async function (accessToken, refreshToken, profile, done) {
     const provider = 'KAKAO'
@@ -71,6 +72,7 @@ passport.use(new KakaoStrategy({
             await userHandler.addItem(userKey, email, null, username, profileImage, '$NO_USER_ID', provider)
             user = await userHandler.getItem(userKey)
         }
+
         return done(null, user)
     } catch (e) {
         console.error(e)

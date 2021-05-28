@@ -102,7 +102,8 @@ module.exports = {
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/pwa',
         '@nuxtjs/axios',
-        '@nuxtjs/auth',
+        '@nuxtjs/axios',
+        '@nuxtjs/auth-next',
         '@nuxtjs/toast',
         'nuxt-clipboard2',
         ['vuetify-dialog/nuxt', {
@@ -159,17 +160,26 @@ module.exports = {
     auth: {
         strategies: {
             kakao: {
-                _scheme: 'oauth2',
-                authorization_endpoint: 'https://kauth.kakao.com/oauth/authorize',
-                userinfo_endpoint: 'https://kapi.kakao.com/v2/user/me',
-                access_token_endpoint: 'https://kauth.kakao.com/oauth/token',
+                scheme: 'oauth2',
+                endpoints: {
+                    authorization: 'https://kauth.kakao.com/oauth/authorize',
+                    token: 'https://kauth.kakao.com/oauth/token',
+                    userInfo: 'https://kapi.kakao.com/v2/user/me'
+                },
+                token: {
+                    property: 'access_token',
+                    type: 'bearer',
+                    maxAge: 1800
+                },
+                refreshToken: {
+                    property: 'refresh_token',
+                    maxAge: 60 * 60 * 24 * 30
+                },
                 scope: ['profile'],
-                access_type: 'authorization_code',
-                response_type: 'code',
-                token_type: 'Bearer',
-                redirect_uri: process.env.KAKAO_CALLBACK_URL,
-                client_id: process.env.KAKAO_CLIENT_ID,
-                token_key: 'access_token',
+                grantType: 'authorization_code',
+                responseType: 'code',
+                redirectUri: process.env.KAKAO_CALLBACK_URL,
+                clientId: process.env.KAKAO_CLIENT_ID,
                 state: '11kjwkrajfij2k3nefndsmfnvx23efjjkjsdn'
             }
         }

@@ -17,7 +17,7 @@ export default {
 
         console.log('fucking', user)
 
-        if (user.registered) {
+        if (user && user.registered) {
             return this.$router.push('/')
         }
 

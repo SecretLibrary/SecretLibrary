@@ -25,11 +25,13 @@ router.post('/logout', (req, res) => {
 
 router.get('/kakao2', passport.authenticate('bearer'), (req, res) => res.json(req.user))
 
-router.get('/kakao', passport.authenticate('kakao'))
-router.get('/kakao/callback', passport.authenticate('kakao', {
-    failureRedirect: '/Login',
-    successRedirect: '/Auth/Callback',
-    failureFlash: true
-}))
+// router.get('/kakao', passport.authenticate('kakao'))
+router.get('/kakao/callback',
+    passport.authenticate('kakao', {
+        failureRedirect: '/FUCK',
+        successRedirect: '/Auth/Callback',
+        failureFlash: true
+    })
+)
 
 module.exports = router
