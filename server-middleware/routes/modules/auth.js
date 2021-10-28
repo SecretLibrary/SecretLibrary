@@ -28,9 +28,9 @@ router.get('/kakao2', passport.authenticate('bearer'), (req, res) => res.json(re
 // router.get('/kakao', passport.authenticate('kakao'))
 router.get('/kakao/callback',
     passport.authenticate('kakao', {
-        failureRedirect: '/FUCK',
+        failureRedirect: '/Login',
         successRedirect: '/Auth/Callback',
-        failureFlash: true
+        failureFlash: false
     })
 )
 

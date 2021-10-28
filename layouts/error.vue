@@ -31,7 +31,8 @@ export default {
     mounted () {
         if (this.error.statusCode === 401) {
             this.$auth.logout()
-            this.$router.push('/login')
+            console.log('fucking', this.error)
+            // this.$router.push('/login')
         }
     },
     head () {

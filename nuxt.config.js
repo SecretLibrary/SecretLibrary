@@ -4,6 +4,7 @@ module.exports = {
     /*
     ** Headers of the page
     */
+    target: 'server',
     head: {
         // titleTemplate: '%s' + process.env.npm_package_name,
         titleTemplate: '%s' + ' - 비밀서재',
@@ -67,6 +68,7 @@ module.exports = {
     buildModules: [
         // Doc: https://github.com/nuxt-community/eslint-module
         '@nuxtjs/eslint-module',
+        // '@nuxtjs/proxy',
         '@nuxtjs/vuetify',
         '@nuxtjs/pwa',
         '@nuxtjs/dotenv',
@@ -76,6 +78,10 @@ module.exports = {
             }
         ]
     ],
+    // proxy: [
+    //     'http://localhost:3000/api',
+    //     'https://www.secretlibrary.net/api'
+    // ],
     dotenv: {
         systemvars: true
     },
@@ -120,8 +126,7 @@ module.exports = {
     ** See https://axios.nuxtjs.org/options
     */
     axios: {
-        baseURL: process.env.NODE_ENV === 'production' ? 'https://www.secretlibrary.net/api' : 'http://localhost:3000/api',
-        proxyHeaders: false,
+        browserBaseURL: '/api/',
         credentials: true
     },
     serverMiddleware: [
@@ -159,6 +164,8 @@ module.exports = {
     */
     auth: {
         strategies: {
+            cookie: {
+            },
             kakao: {
                 scheme: 'oauth2',
                 endpoints: {

@@ -11,17 +11,16 @@
 <script>
 export default {
     name: 'Callback',
+    auth: false,
     async mounted () {
         await this.$nextTick()
-        const user = this.$auth.user
-
-        console.log('fucking', user)
-
-        if (user && user.registered) {
-            return this.$router.push('/')
-        }
-
-        return this.$router.push('/Register')
+        // const user = this.$auth.user
+        //
+        // if (user && user.registered) {
+        //     return this.$router.push('/')
+        // }
+        //
+        // return this.$router.push('/Register')
     }
 }
 </script>
