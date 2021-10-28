@@ -3,6 +3,8 @@ const passport = require('passport')
 const session = require('express-session')
 const cors = require('cors')
 
+require('dotenv').config()
+
 const app = express()
 
 const secret = process.env.SESSION_KEY

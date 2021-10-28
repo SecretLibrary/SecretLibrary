@@ -7,6 +7,8 @@ const KakaoStrategy = require('passport-kakao').Strategy
 const axios = require('axios')
 const userHandler = require('../aws/modules/user')
 
+require('dotenv').config()
+
 // const kakaoClientID = process.env.KAKAO_REST_KEY
 const kakaoRestApiKey = process.env.KAKAO_REST_KEY
 const kakaoCallbackURL = process.env.KAKAO_CALLBACK_URL
