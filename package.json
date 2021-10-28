@@ -9,7 +9,7 @@
         "serve": "nuxt",
         "build": "nuxt build",
         "prestart": "nuxt build",
-        "start": "cross-env NODE_ENV=production node server-middleware/app.js",
+        "start": "nuxt start",
         "generate": "nuxt generate",
         "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
         "test": "jest"
@@ -19,6 +19,7 @@
         "aws-sdk": "^2.649.0",
         "axios": "^0.19.2",
         "compressorjs": "^1.0.6",
+        "cookie-session": "^1.4.0",
         "cors": "^2.8.5",
         "cross-env": "^5.2.0",
         "dotenv": "^10.0.0",
