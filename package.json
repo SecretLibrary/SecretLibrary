@@ -18,7 +18,7 @@
         "@nuxtjs/auth-next": "5.0.0-1622018627.48534b6",
         "@nuxtjs/proxy": "^2.1.0",
         "aws-sdk": "^2.649.0",
-        "axios": "^0.19.2",
+        "axios": "^0.21.2",
         "compressorjs": "^1.0.6",
         "cookie-parser": "^1.4.5",
         "cookie-session": "^1.4.0",
