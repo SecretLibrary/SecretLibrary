@@ -68,7 +68,7 @@ module.exports = {
     buildModules: [
         // Doc: https://github.com/nuxt-community/eslint-module
         '@nuxtjs/eslint-module',
-        // '@nuxtjs/proxy',
+        '@nuxtjs/proxy',
         '@nuxtjs/vuetify',
         '@nuxtjs/pwa',
         '@nuxtjs/dotenv',
@@ -78,10 +78,9 @@ module.exports = {
             }
         ]
     ],
-    // proxy: [
-    //     'http://localhost:3000/api',
-    //     'https://www.secretlibrary.net/api'
-    // ],
+    proxy: {
+        '/api/': { target: 'http://localhost:3000', pathRewrite: { '^/api/': '' } }
+    },
     dotenv: {
         systemvars: true
     },
@@ -108,7 +107,6 @@ module.exports = {
         // Doc: https://axios.nuxtjs.org/usage
         '@nuxtjs/pwa',
         '@nuxtjs/axios',
-        '@nuxtjs/axios',
         '@nuxtjs/auth-next',
         '@nuxtjs/toast',
         'nuxt-clipboard2',
@@ -127,7 +125,8 @@ module.exports = {
     */
     axios: {
         browserBaseURL: '/api/',
-        credentials: true
+        credentials: true,
+        proxy: true
     },
     serverMiddleware: [
         { path: '/api', handler: '~/server-middleware/app.js' }
