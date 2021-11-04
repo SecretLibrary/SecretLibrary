@@ -78,9 +78,6 @@ module.exports = {
             }
         ]
     ],
-    proxy: {
-        '/api/': { target: 'http://localhost:3000', pathRewrite: { '^/api/': '' } }
-    },
     dotenv: {
         systemvars: true
     },
@@ -125,9 +122,11 @@ module.exports = {
     */
     axios: {
         browserBaseURL: '/api/',
-        credentials: true,
-        proxy: true
+        credentials: true
     },
+    // proxy: {
+    //     '/api/': { target: 'http://localhost:3000', pathRewrite: { '^/api/': '' } }
+    // },
     serverMiddleware: [
         { path: '/api', handler: '~/server-middleware/app.js' }
     ],
@@ -163,8 +162,6 @@ module.exports = {
     */
     auth: {
         strategies: {
-            cookie: {
-            },
             kakao: {
                 scheme: 'oauth2',
                 endpoints: {
